@@ -104,23 +104,19 @@ public class MapGen : MonoBehaviour {
 		bool isWall = map[startX, startY];
 
 		queue.Enqueue(new Tile(startX, startY));
+		visited[startX, startY] = true;
 		while (queue.Count > 0) {
 			Tile t = queue.Dequeue();
 			tiles.Add(t);
-			visited[t.x, t.y] = true;
 
 			List<Tile> neighbours = GetNeighbourTiles(t);
 			foreach (Tile n in neighbours) {
-				try {
-					if (!visited[n.x, n.y] && map[n.x, n.y] == isWall) {
-						queue.Enqueue(n);
-					}
-				} catch (IndexOutOfRangeException e) {
-					print(n);
+				if (!visited[n.x, n.y] && map[n.x, n.y] == isWall) {
+					queue.Enqueue(n);
+					visited[n.x, n.y] = true;
 				}
 			}
 		}
-
 		return tiles;
 	}
 
@@ -128,7 +124,7 @@ public class MapGen : MonoBehaviour {
 		List<Tile> ret = new List<Tile>();
 		for (int x = t.x - 1; x <= t.x + 1; x++) {
 			for (int y = t.y - 1; y <= t.y + 1; y++) {
-				if (IsInMapRange(t.x, t.y) && t.x != x && t.y != y) {
+				if (IsInMapRange(x, y) && !(t.x == x && t.y == y)) {
 					ret.Add(new Tile(x, y));
 				}
 			}
