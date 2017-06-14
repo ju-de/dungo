@@ -6,6 +6,8 @@ using AssemblyCSharp;
 
 public class MapGen : MonoBehaviour {
 
+	public int seed;
+	public bool useCustomSeed = false;
 	public int width, height;
 	[Range(0, 100)]
 	public int fill;	// Percentage of map that starts as FILLED
@@ -24,7 +26,6 @@ public class MapGen : MonoBehaviour {
 		}
 	}
 
-
 	void GenerateMap() {
 		map = new bool[width,height];
 
@@ -32,11 +33,23 @@ public class MapGen : MonoBehaviour {
 		for (int i = 0; i < smoothIterations; i++) {
 			SmoothMap();
 		}
-		RefineMap();
+
+
+		ExpandRooms();
+//		RemoveThinWalls();
+		SmoothMap();
+		RemoveSmallRegions();
+
+		MeshGen meshGen = GetComponent<MeshGen>();
+		meshGen.GenerateMesh(map, width, height);
 	}
 
 	void FillMap() {
-		UnityEngine.Random.seed = (int) System.DateTime.Now.ToFileTime();
+		if (useCustomSeed) {
+			UnityEngine.Random.seed = seed;
+		} else {
+			UnityEngine.Random.seed = (int) System.DateTime.Now.ToFileTime();
+		}
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
@@ -63,7 +76,35 @@ public class MapGen : MonoBehaviour {
 		}
 	}
 
-	void RefineMap() {
+	void ExpandRooms() {
+		bool[,] mapCopy = (bool[,]) map.Clone();
+		for (int x = 1; x < width - 1; x++) {
+			for (int y = 1; y < height - 1; y++) {
+				if (!(mapCopy[x-1, y] && mapCopy[x+1, y] && mapCopy[x, y-1] && mapCopy[x, y+1])) {
+					map[x, y] = false;
+				}
+			}
+		}
+	}
+
+	void RemoveThinWalls() {
+		for (int x = 1; x < width - 1; x++) {
+			for (int y = 1; y < height - 1; y++) {
+				if ((!map[x-1, y-1] && !map[x+1, y+1]) || (!map[x+1, y-1] && !map[x-1, y+1])) {
+					map[x, y] = false;
+				}
+			}
+		}
+		for (int x = 1; x < width - 1; x++) {
+			for (int y = 1; y < height - 1; y++) {
+				if ((!map[x-1, y] && !map[x+1, y]) || (!map[x, y-1] && !map[x, y+1])) {
+					map[x, y] = false;
+				}
+			}
+		}
+	}
+
+	void RemoveSmallRegions() {
 		bool[,] visited = new bool[width, height];
 
 		List<List<Tile>> wallRegions = new List<List<Tile>>();
@@ -104,7 +145,7 @@ public class MapGen : MonoBehaviour {
 	List<Tile> BFS(int startX, int startY, bool[,] visited) {
 		List<Tile> tiles = new List<Tile>();
 		Queue<Tile> queue = new Queue<Tile>();
-		bool isWall = map[startX, startY];
+		bool tileType = map[startX, startY];
 
 		queue.Enqueue(new Tile(startX, startY));
 		visited[startX, startY] = true;
@@ -114,7 +155,7 @@ public class MapGen : MonoBehaviour {
 
 			List<Tile> neighbours = GetNeighbourTiles(t);
 			foreach (Tile n in neighbours) {
-				if (!visited[n.x, n.y] && map[n.x, n.y] == isWall) {
+				if (!visited[n.x, n.y] && map[n.x, n.y] == tileType) {
 					queue.Enqueue(n);
 					visited[n.x, n.y] = true;
 				}
@@ -124,28 +165,30 @@ public class MapGen : MonoBehaviour {
 	}
 
 	List<Tile> GetNeighbourTiles(Tile t) {
+		List<Tile> tiles = new List<Tile>();
 		List<Tile> ret = new List<Tile>();
-		for (int x = t.x - 1; x <= t.x + 1; x++) {
-			for (int y = t.y - 1; y <= t.y + 1; y++) {
-				if (IsInMapRange(x, y) && !(t.x == x && t.y == y)) {
-					ret.Add(new Tile(x, y));
-				}
-			}
+		tiles.Add(new Tile(t.x - 1, t.y));
+		tiles.Add(new Tile(t.x + 1, t.y));
+		tiles.Add(new Tile(t.x, t.y - 1));
+		tiles.Add(new Tile(t.x, t.y + 1));
+
+		foreach(Tile n in tiles) {
+			if (IsInMapRange(n)) ret.Add(n);
 		}
 		return ret;
 	}
 
-	bool IsInMapRange(int x, int y) {
-		return x >= 0 && x < width && y >= 0 && y < height;
+	bool IsInMapRange(Tile t) {
+		return t.x >= 0 && t.x < width && t.y >= 0 && t.y < height;
 	}
 
 	void OnDrawGizmos() {
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				Gizmos.color = map[x, y] ? Color.white : Color.black;
-				Vector3 pos = new Vector3(-width/2 + x + .5f, 0, -height/2 + y + .5f);
-				Gizmos.DrawCube(pos,Vector3.one);
-			}
-		}
+//		for (int x = 0; x < width; x++) {
+//			for (int y = 0; y < height; y++) {
+//				Gizmos.color = map[x, y] ? Color.white : Color.black;
+//				Vector3 pos = new Vector3(-width/2 + x + .5f, 0, -height/2 + y + .5f);
+//				Gizmos.DrawCube(pos,Vector3.one);
+//			}
+//		}
 	}
 }
