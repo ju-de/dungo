@@ -2,15 +2,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AssemblyCSharp;
 
 public class MapGen : MonoBehaviour {
 
 	public int width, height;
-
 	[Range(0, 100)]
 	public int fill;	// Percentage of map that starts as FILLED
-
-	public int wallThreshold = 20, roomThreshold = 20;
+	public int smoothIterations;
+	public int wallThreshold, roomThreshold;
 
 	bool[,] map;		// true = WHITE = WALL; false = BLACK = ROOM
 
@@ -29,7 +29,7 @@ public class MapGen : MonoBehaviour {
 		map = new bool[width,height];
 
 		FillMap();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < smoothIterations; i++) {
 			SmoothMap();
 		}
 		RefineMap();
@@ -69,6 +69,7 @@ public class MapGen : MonoBehaviour {
 		List<List<Tile>> wallRegions = new List<List<Tile>>();
 		List<List<Tile>> roomRegions = new List<List<Tile>>();
 
+		// find all wall and room regions
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (!visited[x, y]) {
@@ -82,6 +83,7 @@ public class MapGen : MonoBehaviour {
 			}
 		}
 
+		// remove wall regions that are too small
 		foreach (List<Tile> region in wallRegions) {
 			if (region.Count < wallThreshold) {
 				foreach (Tile tile in region) {
@@ -89,6 +91,7 @@ public class MapGen : MonoBehaviour {
 				}
 			}
 		}
+		// remove room regions that are too small
 		foreach (List<Tile> region in roomRegions) {
 			if (region.Count < roomThreshold) {
 				foreach (Tile tile in region) {
@@ -134,15 +137,6 @@ public class MapGen : MonoBehaviour {
 
 	bool IsInMapRange(int x, int y) {
 		return x >= 0 && x < width && y >= 0 && y < height;
-	}
-
-	struct Tile {
-		public int x, y;
-
-		public Tile (int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
 	}
 
 	void OnDrawGizmos() {
