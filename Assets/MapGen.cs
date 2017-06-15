@@ -10,7 +10,8 @@ public class MapGen : MonoBehaviour {
 	public bool useCustomSeed = false;
 	public int width, height;
 	[Range(0, 100)]
-	public int fill;	// Percentage of map that starts as FILLED
+	public int fill;
+	public int neighbourThreshold;
 	public int smoothIterations;
 	public int wallThreshold, roomThreshold;
 
@@ -22,12 +23,13 @@ public class MapGen : MonoBehaviour {
 
 	void Start() {
 		GenerateMap();
+		GenerateMesh(tileMap, width, height);
 	}
 	
 	void Update() {
 		if (Input.GetMouseButtonDown(0)) {
-			GenerateMap();
-		}
+            GenerateMap();
+        }
 	}
 
 	void GenerateMap() {
@@ -43,11 +45,9 @@ public class MapGen : MonoBehaviour {
 
 
 		ExpandRooms();
-		RemoveThinWalls();
+		// RemoveThinWalls();
 		SmoothMap();
 		RemoveSmallRegions();
-
-		GenerateMesh(tileMap, width, height);
 	}
 
 	void FillMap() {
@@ -75,7 +75,7 @@ public class MapGen : MonoBehaviour {
 						if (tileMap[dx, dy]) walls++;
 					}
 				}
-				tileMap[x, y] = walls > 4;
+				tileMap[x, y] = walls >= neighbourThreshold;
 			}
 		}
 	}
@@ -116,23 +116,32 @@ public class MapGen : MonoBehaviour {
 		foreach (List<Tile> region in wallRegions) {
 			if (region.Count < wallThreshold) {
 				foreach (Tile tile in region) {
-					tileMap[tile.x,tile.y] = false;
+					tileMap[tile.x, tile.y] = false;
 				}
 			}
 		}
 		// remove room regions that are too small
+		// foreach (List<Tile> region in roomRegions) {
+		// 	if (region.Count < roomThreshold) {
+		// 		foreach (Tile tile in region) {
+		// 			tileMap[tile.x,tile.y] = true;
+		// 		}
+		// 	}
+		// }
+
+		// only keep the largest room
+		List<Tile> largestRoom = roomRegions[0];
 		foreach (List<Tile> region in roomRegions) {
-			if (region.Count < roomThreshold) {
-				foreach (Tile tile in region) {
-					tileMap[tile.x,tile.y] = true;
-				}
+			if (region.Count > largestRoom.Count) {
+				largestRoom = region;
 			}
 		}
-
-		// get final regions
-		GetAllRegions();
-		foreach (List<Tile> room in roomRegions) {
-			Debug.Log(room.Count);
+		foreach (List<Tile> region in roomRegions) {
+			if (region != largestRoom) {
+				foreach (Tile tile in region) {
+					tileMap[tile.x, tile.y] = true;
+				}
+			}
 		}
 	}
 
