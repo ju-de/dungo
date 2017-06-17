@@ -204,7 +204,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 08427f1fd05e94726bfc049d841e0449, type: 2}
+  - {fileID: 2100000, guid: b3bfdc62f8426477d89c377b3a0bb482, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2080215057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ce52a84d8bbf4ec8acbd18ba7ec655f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c2d6ce095fdc4b12bfaa32c2e063a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   neighbourThreshold: 5
   smoothIterations: 2
   wallThreshold: 20
-  roomThreshold: 200
+  roomThreshold: 0
   drawGizmos: 0
 --- !u!4 &2080215059
 Transform:
@@ -411,7 +411,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 453d9bff608394e84927316d844eed1e, type: 2}
+  - {fileID: 2100000, guid: db07037a6719242aebdc1496dee0d0cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
