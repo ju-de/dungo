@@ -15,8 +15,9 @@ public class MapGen : MonoBehaviour {
 	public int wallThreshold;
 	public int minMapSize, maxMapSize;
 
-	public bool debugDrawGizmos = false;
-	public bool debugDrawMesh = true;
+	public bool debug = false;
+
+	public GameObject player;
 
 	bool[,] tileMap;		// true = WHITE = WALL; false = BLACK = ROOM
 	List<List<Tile>> wallRegions;
@@ -24,13 +25,14 @@ public class MapGen : MonoBehaviour {
 
 	void Start() {
 		GenerateMap();
-		if (debugDrawMesh) {
+		if (!debug) {
 			GenerateMesh(tileMap, width, height);
 		}
+		PlacePlayer();
 	}
 	
 	void Update() {
-		if (Input.GetMouseButtonDown(0)) {
+		if (debug && Input.GetMouseButtonDown(0)) {
             GenerateMap();
         }
 	}
@@ -93,9 +95,9 @@ public class MapGen : MonoBehaviour {
 		for (int x = 1; x < width - 1; x++) {
 			for (int y = 1; y < height - 1; y++) {
 				if (tileMap[x, y]) {
-					tileMap[x, y] = MapUtils.getWallNeighbours(tileMap, x, y) >= 4;
+					tileMap[x, y] = MapUtils.GetWallNeighbours(tileMap, x, y) >= 4;
 				} else {
-					tileMap[x, y] = MapUtils.getWallNeighbours(tileMap, x, y) >= 5;
+					tileMap[x, y] = MapUtils.GetWallNeighbours(tileMap, x, y) >= 5;
 				}
 			}
 		}
@@ -105,8 +107,8 @@ public class MapGen : MonoBehaviour {
 		for (int x = 2; x < width - 2; x++) {
 			for (int y = 2; y < height - 2; y++) {
 				tileMap[x, y] = tileMap[x, y] ||
-						MapUtils.getWallNeighbours(tileMap, x, y) >= 5 ||
-						MapUtils.getTwoTileWallNeighbours(tileMap, x, y) <= 1;
+						MapUtils.GetWallNeighbours(tileMap, x, y) >= 5 ||
+						MapUtils.GetTwoTileWallNeighbours(tileMap, x, y) <= 1;
 			}
 		}
 	}
@@ -285,10 +287,12 @@ public class MapGen : MonoBehaviour {
 		}
 
 		Mesh mesh = new Mesh();
-		GetComponent<MeshFilter>().mesh = mesh;
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();
+
+		GetComponent<MeshFilter>().mesh = mesh;
+		GetComponent<MeshCollider>().sharedMesh = mesh;
 	}
 
 	void AddCeilingVertex(int x, int y) {
@@ -321,8 +325,19 @@ public class MapGen : MonoBehaviour {
 		triangles.Add(v3);
 	}
 
+	void PlacePlayer() {
+		for (int x = 1; x < width - 1; x++) {
+			for (int y = 1; y < height - 1; y++) {
+				if (MapUtils.GetWallNeighbours(tileMap, x, y) == 0) {
+					player.transform.Translate(x, 0, y);
+					return;
+				}
+			}
+		}
+	}
+
 	void OnDrawGizmos() {
-		if (debugDrawGizmos) {
+		if (debug) {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
 					Gizmos.color = tileMap[x, y] ? Color.white : Color.black;

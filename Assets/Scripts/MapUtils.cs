@@ -35,7 +35,7 @@ public class MapUtils {
 		return false;
 	}
 
-	public static int getWallNeighbours(bool[,] map, int x, int y) {
+	public static int GetWallNeighbours(bool[,] map, int x, int y) {
 		int walls = 0;
 		for (int dx = x - 1; dx <= x + 1; dx++) {
 			for (int dy = y - 1; dy <= y + 1; dy++) {
@@ -45,7 +45,7 @@ public class MapUtils {
 		return walls;
 	}
 
-	public static int getTwoTileWallNeighbours(bool[,] map, int x, int y) {
+	public static int GetTwoTileWallNeighbours(bool[,] map, int x, int y) {
 		int walls = 0;
 		for (int dx = x - 2; dx <= x + 2; dx++) {
 			for (int dy = y - 2; dy <= y + 2; dy++) {
