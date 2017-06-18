@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AssemblyCSharp;
+using Random = UnityEngine.Random;
 
 public class MapGen : MonoBehaviour {
 
@@ -11,11 +11,12 @@ public class MapGen : MonoBehaviour {
 	public int width, height;
 	[Range(0, 100)]
 	public int fill;
-	public int neighbourThreshold;
-	public int smoothIterations;
-	public int wallThreshold, roomThreshold;
+	public int smoothAndFillIterations, smoothIterations;
+	public int wallThreshold;
+	public int minMapSize, maxMapSize;
 
-	public bool drawGizmos = false;
+	public bool debugDrawGizmos = false;
+	public bool debugDrawMesh = true;
 
 	bool[,] tileMap;		// true = WHITE = WALL; false = BLACK = ROOM
 	List<List<Tile>> wallRegions;
@@ -23,7 +24,9 @@ public class MapGen : MonoBehaviour {
 
 	void Start() {
 		GenerateMap();
-		GenerateMesh(tileMap, width, height);
+		if (debugDrawMesh) {
+			GenerateMesh(tileMap, width, height);
+		}
 	}
 	
 	void Update() {
@@ -33,33 +36,55 @@ public class MapGen : MonoBehaviour {
 	}
 
 	void GenerateMap() {
+		Random.seed = useCustomSeed ? seed : (int) System.DateTime.Now.ToFileTime();
+		Debug.Log(Random.seed);
+
+		for (int i = 0; i < 5; i++) {
+			if (TryGeneratingMap()) break;
+		}
+	}
+
+	bool TryGeneratingMap() {
 		tileMap = new bool[width, height];
 
 		wallRegions = new List<List<Tile>>();
 		roomRegions = new List<List<Tile>>();
 
 		FillMap();
+		for (int i = 0; i < smoothAndFillIterations; i++) {
+			SmoothAndAddWalls();
+		}
 		for (int i = 0; i < smoothIterations; i++) {
 			SmoothMap();
 		}
 
 
-		ExpandRooms();
+		// ExpandRooms();
 		// RemoveThinWalls();
-		SmoothMap();
-		RemoveSmallRegions();
+		// SmoothMap();
+		RemoveSmallRooms();
+		RemoveSmallWalls();
+
+		int filled = 0 ;
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (tileMap[x, y]) filled++;
+			}
+		}
+
+		int unfilledPercentage = (int) ((1f - 1f * filled / (width * height)) * 100f);
+		Debug.Log("Map size percentage: " + unfilledPercentage);
+		return unfilledPercentage >= minMapSize && unfilledPercentage <= maxMapSize;
 	}
 
 	void FillMap() {
-		UnityEngine.Random.seed = useCustomSeed ? seed : (int) System.DateTime.Now.ToFileTime();
-		Debug.Log(UnityEngine.Random.seed);
-
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+				// pre-fill outer regions so open space does not "clip" at edges of the map and create long, flat walls
+				if (x < 10 || x >= width - 10 || y < 10 || y >= height - 10) {
 					tileMap[x, y] = true;
 				} else {
-					tileMap[x, y] = UnityEngine.Random.Range(0, 100) < fill;
+					tileMap[x, y] = Random.Range(0, 100) < fill;
 				}
 			}
 		}
@@ -68,14 +93,21 @@ public class MapGen : MonoBehaviour {
 	void SmoothMap() {
 		for (int x = 1; x < width - 1; x++) {
 			for (int y = 1; y < height - 1; y++) {
-				// Get number of surrounding wall tiles
-				int walls = 0;
-				for (int dx = x - 1; dx <= x + 1; dx++) {
-					for (int dy = y - 1; dy <= y + 1; dy++) {
-						if (tileMap[dx, dy]) walls++;
-					}
+				if (tileMap[x, y]) {
+					tileMap[x, y] = MapUtils.getWallNeighbours(tileMap, x, y) >= 4;
+				} else {
+					tileMap[x, y] = MapUtils.getWallNeighbours(tileMap, x, y) >= 5;
 				}
-				tileMap[x, y] = walls >= neighbourThreshold;
+			}
+		}
+	}
+
+	void SmoothAndAddWalls() {
+		for (int x = 2; x < width - 2; x++) {
+			for (int y = 2; y < height - 2; y++) {
+				tileMap[x, y] = tileMap[x, y] ||
+						MapUtils.getWallNeighbours(tileMap, x, y) >= 5 ||
+						MapUtils.getTwoTileWallNeighbours(tileMap, x, y) <= 1;
 			}
 		}
 	}
@@ -108,26 +140,8 @@ public class MapGen : MonoBehaviour {
 		}
 	}
 
-	void RemoveSmallRegions() {
-		// find all wall and room regions
+	void RemoveSmallRooms() {
 		GetAllRegions();
-
-		// remove wall regions that are too small
-		foreach (List<Tile> region in wallRegions) {
-			if (region.Count < wallThreshold) {
-				foreach (Tile tile in region) {
-					tileMap[tile.x, tile.y] = false;
-				}
-			}
-		}
-		// remove room regions that are too small
-		// foreach (List<Tile> region in roomRegions) {
-		// 	if (region.Count < roomThreshold) {
-		// 		foreach (Tile tile in region) {
-		// 			tileMap[tile.x,tile.y] = true;
-		// 		}
-		// 	}
-		// }
 
 		// only keep the largest room
 		List<Tile> largestRoom = roomRegions[0];
@@ -140,6 +154,19 @@ public class MapGen : MonoBehaviour {
 			if (region != largestRoom) {
 				foreach (Tile tile in region) {
 					tileMap[tile.x, tile.y] = true;
+				}
+			}
+		}
+	}
+
+	void RemoveSmallWalls() {
+		GetAllRegions();
+
+		// remove wall regions that are too small
+		foreach (List<Tile> region in wallRegions) {
+			if (region.Count < wallThreshold) {
+				foreach (Tile tile in region) {
+					tileMap[tile.x, tile.y] = false;
 				}
 			}
 		}
@@ -175,7 +202,7 @@ public class MapGen : MonoBehaviour {
 			Tile t = queue.Dequeue();
 			tiles.Add(t);
 
-			List<Tile> neighbours = GetNeighbourTiles(t);
+			List<Tile> neighbours = MapUtils.GetNeighbourTiles(t, width, height);
 			foreach (Tile n in neighbours) {
 				if (!visited[n.x, n.y] && tileMap[n.x, n.y] == tileType) {
 					queue.Enqueue(n);
@@ -185,40 +212,6 @@ public class MapGen : MonoBehaviour {
 		}
 		return tiles;
 	}
-
-	List<Tile> GetNeighbourTiles(Tile t) {
-		List<Tile> tiles = new List<Tile>();
-		List<Tile> ret = new List<Tile>();
-		tiles.Add(new Tile(t.x - 1, t.y));
-		tiles.Add(new Tile(t.x + 1, t.y));
-		tiles.Add(new Tile(t.x, t.y - 1));
-		tiles.Add(new Tile(t.x, t.y + 1));
-
-		foreach(Tile n in tiles) {
-			if (IsInMapRange(n)) ret.Add(n);
-		}
-		return ret;
-	}
-
-	bool IsEdgeTile(int x, int y) {
-		List<Tile> neighbours = new List<Tile>();
-		neighbours.Add(new Tile(x, y+1));
-		neighbours.Add(new Tile(x, y-1));
-		neighbours.Add(new Tile(x-1, y));
-		neighbours.Add(new Tile(x+1, y));
-		foreach (Tile n in neighbours) {
-			if (IsInMapRange(n) && !tileMap[n.x, n.y]) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	bool IsInMapRange(Tile t) {
-		return t.x >= 0 && t.x < width && t.y >= 0 && t.y < height;
-	}
-
-
 
 	List<Vector3> vertices = new List<Vector3>();
 	int[,] ceilingVertMap, floorVertMap;
@@ -237,13 +230,13 @@ public class MapGen : MonoBehaviour {
 					continue;
 				}
 				if (map[x, y]) {
-					if (IsEdgeTile(x, y)) {
+					if (MapUtils.IsEdgeTile(x, y, width, height, tileMap)) {
 						AddCeilingAndFloorVertices(x, y);
 					} else {
-						AddCeilingVertex(x, y);
+						// AddCeilingVertex(x, y);
 					}
 				} else {
-					// AddFloorVertex(x, y);
+					AddFloorVertex(x, y);
 					ceilingVertMap[x+1, y+1] = -1;
 				}
 			}
@@ -261,22 +254,22 @@ public class MapGen : MonoBehaviour {
 				int fbl = floorVertMap[x, y+1];
 				int fbr = floorVertMap[x+1, y+1];
 				if (ctl != -1 && ctr != -1 && cbl != -1 && cbr != -1) {
-					AddRectangle(ctl, cbl, cbr, ctr);
+					// AddRectangle(ctl, cbl, cbr, ctr);
 				} else if (ctr != -1 && cbl != -1 && cbr != -1) {	// tr <-> bl
-					AddTriangle(ctr, cbl, cbr);
-					// AddTriangle(ftr, ftl, fbl);
+					// AddTriangle(ctr, cbl, cbr);
+					AddTriangle(ftr, ftl, fbl);
 					AddRectangle(cbl, ctr, ftr, fbl);
 				} else if (ctl != -1 && cbl != -1 && cbr != -1) {	// tl <-> br
-					AddTriangle(ctl, cbl, cbr);
-					// AddTriangle(ftl, fbr, ftr);
+					// AddTriangle(ctl, cbl, cbr);
+					AddTriangle(ftl, fbr, ftr);
 					AddRectangle(ctl, cbr, fbr, ftl);
 				} else if (ctl != -1 && ctr != -1 && cbr != -1) {	// tl <-> br
-					AddTriangle(ctl, cbr, ctr);
-					// AddTriangle(ftl, fbl, fbr);
+					// AddTriangle(ctl, cbr, ctr);
+					AddTriangle(ftl, fbl, fbr);
 					AddRectangle(ftl, fbr, cbr, ctl);
 				} else if (ctl != -1 && ctr != -1 && cbl != -1) {	// tr <-> bl
-					AddTriangle(ctl, cbl, ctr);
-					// AddTriangle(fbl, fbr, ftr);
+					// AddTriangle(ctl, cbl, ctr);
+					AddTriangle(fbl, fbr, ftr);
 					AddRectangle(fbl, ftr, ctr, cbl);
 				} else {
 					if (ctl != -1 && ctr != -1) {
@@ -288,8 +281,7 @@ public class MapGen : MonoBehaviour {
 					} else if (cbl != -1 && ctl != -1 ) {
 						AddRectangle(cbl, fbl, ftl, ctl);
 					}
-					// AddTriangle(ftl, fbl, fbr);
-					// AddTriangle(ftl, fbr, ftr);
+					AddRectangle(ftl, fbl, fbr, ftr);
 				}
 			}
 		}
@@ -332,7 +324,7 @@ public class MapGen : MonoBehaviour {
 	}
 
 	void OnDrawGizmos() {
-		if (drawGizmos) {
+		if (debugDrawGizmos) {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
 					Gizmos.color = tileMap[x, y] ? Color.white : Color.black;
