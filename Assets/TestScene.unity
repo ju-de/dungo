@@ -368,8 +368,10 @@ MonoBehaviour:
   smoothAndFillIterations: 1
   smoothIterations: 2
   wallThreshold: 15
-  debugDrawGizmos: 1
-  debugDrawMesh: 0
+  minMapSize: 25
+  maxMapSize: 40
+  debugDrawGizmos: 0
+  debugDrawMesh: 1
 --- !u!4 &2080215059
 Transform:
   m_ObjectHideFlags: 0

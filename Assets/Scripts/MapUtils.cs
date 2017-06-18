@@ -7,7 +7,7 @@ public class MapUtils {
 		return t.x >= 0 && t.x < width && t.y >= 0 && t.y < height;
 	}
 
-	public static List<Tile> GetNeighbourTiles(Tile t, int width, int height) {
+	public static List<Tile> GetCardinalNeighbours(Tile t, int width, int height) {
 		List<Tile> tiles = new List<Tile>();
 		List<Tile> ret = new List<Tile>();
 		tiles.Add(new Tile(t.x - 1, t.y));

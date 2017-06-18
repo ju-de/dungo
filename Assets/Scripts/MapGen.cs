@@ -60,10 +60,9 @@ public class MapGen : MonoBehaviour {
 
 
 		// ExpandRooms();
-		// RemoveThinWalls();
-		// SmoothMap();
 		RemoveSmallRooms();
 		RemoveSmallWalls();
+		ClearPassages();
 
 		int filled = 0 ;
 		for (int x = 0; x < width; x++) {
@@ -123,18 +122,17 @@ public class MapGen : MonoBehaviour {
 		}
 	}
 
-	void RemoveThinWalls() {
-		// for (int x = 1; x < width - 1; x++) {
-		// 	for (int y = 1; y < height - 1; y++) {
-		// 		if ((!map[x-1, y-1] && !map[x+1, y+1]) || (!map[x+1, y-1] && !map[x-1, y+1])) {
-		// 			map[x, y] = false;
-		// 		}
-		// 	}
-		// }
+	void ClearPassages() {
 		for (int x = 1; x < width - 1; x++) {
 			for (int y = 1; y < height - 1; y++) {
-				if ((!tileMap[x-1, y] && !tileMap[x+1, y]) || (!tileMap[x, y-1] && !tileMap[x, y+1])) {
-					tileMap[x, y] = false;
+				if (!tileMap[x, y]) {
+					if (tileMap[x-1, y] && tileMap[x+1, y] && !tileMap[x, y-1] && !tileMap[x, y+1]) {
+						tileMap[x-1, y] = true;
+						tileMap[x+1, y] = true;
+					} else if (!tileMap[x-1, y] && !tileMap[x+1, y] && tileMap[x, y-1] && tileMap[x, y+1]) {
+						tileMap[x, y-1] = true;
+						tileMap[x, y+1] = true;
+					}
 				}
 			}
 		}
@@ -202,7 +200,7 @@ public class MapGen : MonoBehaviour {
 			Tile t = queue.Dequeue();
 			tiles.Add(t);
 
-			List<Tile> neighbours = MapUtils.GetNeighbourTiles(t, width, height);
+			List<Tile> neighbours = MapUtils.GetCardinalNeighbours(t, width, height);
 			foreach (Tile n in neighbours) {
 				if (!visited[n.x, n.y] && tileMap[n.x, n.y] == tileType) {
 					queue.Enqueue(n);
