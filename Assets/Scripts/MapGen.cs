@@ -25,11 +25,11 @@ public class MapGen : MonoBehaviour {
 
 	void Start() {
 		GenerateMap();
+		PlacePlayer();
 		if (!debug) {
 			MeshGen meshGen = GetComponent<MeshGen>();
 			meshGen.GenerateMesh(tileMap, width, height);
 		}
-		PlacePlayer();
 	}
 	
 	void Update() {
