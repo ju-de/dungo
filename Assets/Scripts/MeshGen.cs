@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeshGen : MonoBehaviour {
 
+	public int wallHeight = 2;
+
 	GameObject wallsObject, ceilingObject;
 
 	int?[,] ceilingVertMap, wallVertMap;
@@ -59,12 +61,12 @@ public class MeshGen : MonoBehaviour {
 	}
 
 	void AddCeilingVertex(int x, int y) {
-		ceilingVertices.Add(new Vector3(x, 2, y));
+		ceilingVertices.Add(new Vector3(x, wallHeight, y));
 		ceilingVertMap[x+1, y+1] = ceilingVertices.Count - 1;
 	}
 
 	void AddWallVertices(int x, int y) {
-		wallVertices.Add(new Vector3(x, 2, y));
+		wallVertices.Add(new Vector3(x, wallHeight, y));
 		wallVertices.Add(new Vector3(x, 0, y));
 		wallVertMap[x+1, y+1] = wallVertices.Count - 1;	// stored index is for floor; -1 to get ceiling
 	}
