@@ -8,12 +8,13 @@ public class MeshGen : MonoBehaviour {
 
 	GameObject wallsObject, ceilingObject;
 
-	int?[,] ceilingVertMap, wallVertMap;
+	int?[,] ceilingVertMap;
+	WallVert[,] wallVertMap;
 	List<Vector3> ceilingVertices, wallVertices;
 	List<int> ceilingTriangles, wallTriangles;
 
 	public void GenerateMesh(bool[,] map, int width, int height) {
-		wallVertMap = new int?[width+2, height+2];
+		wallVertMap = new WallVert[width+2, height+2];
 		wallVertices = new List<Vector3>();
 		wallTriangles = new List<int>();
 
@@ -68,44 +69,66 @@ public class MeshGen : MonoBehaviour {
 	void AddWallVertices(int x, int y) {
 		wallVertices.Add(new Vector3(x, wallHeight, y));
 		wallVertices.Add(new Vector3(x, 0, y));
-		wallVertMap[x+1, y+1] = wallVertices.Count - 1;	// stored index is for floor; -1 to get ceiling
+		wallVertices.Add(new Vector3(x, wallHeight, y));
+		wallVertices.Add(new Vector3(x, 0, y));
+		wallVertMap[x+1, y+1] = new WallVert(wallVertices.Count-4, wallVertices.Count-3, wallVertices.Count-2, wallVertices.Count-1);
 	}
 
 	void GenerateTriangles(bool[,] map, int width, int height) {
 		// Scan through every 4-vert square in the vert grid, draw mesh triangles accordingly
 		for (int x = 0; x < width + 1; x++) {
 			for (int y = 0; y < height + 1; y++) {
-				int? ctl = ceilingVertMap[x, y];
-				int? ctr = ceilingVertMap[x+1, y];
-				int? cbl = ceilingVertMap[x, y+1];
-				int? cbr = ceilingVertMap[x+1, y+1];
-				int? wtl = wallVertMap[x, y];
-				int? wtr = wallVertMap[x+1, y];
-				int? wbl = wallVertMap[x, y+1];
-				int? wbr = wallVertMap[x+1, y+1];
-				if (ctl.HasValue && ctr.HasValue && cbl.HasValue && cbr.HasValue) {	// full ceiling
-					AddRectangle(false, ctl.Value, cbl.Value, cbr.Value, ctr.Value);
-				} else if (ctr.HasValue && cbl.HasValue && cbr.HasValue) {	// tr <-> bl diagonal
-					AddTriangle(false, ctr.Value, cbl.Value, cbr.Value);
-					AddRectangle(true, wbl.Value-1, wtr.Value-1, wtr.Value, wbl.Value);
-				} else if (ctl.HasValue && cbl.HasValue && cbr.HasValue) {	// tl <-> br diagonal
-					AddTriangle(false, ctl.Value, cbl.Value, cbr.Value);
-					AddRectangle(true, wtl.Value-1, wbr.Value-1, wbr.Value, wtl.Value);
-				} else if (ctl.HasValue && ctr.HasValue && cbr.HasValue) {	// tl <-> br diagonal
-					AddTriangle(false, ctl.Value, cbr.Value, ctr.Value);
-					AddRectangle(true, wtl.Value, wbr.Value, wbr.Value-1, wtl.Value-1);
-				} else if (ctl.HasValue && ctr.HasValue && cbl.HasValue) {	// tr <-> bl diagonal
-					AddTriangle(false, ctl.Value, cbl.Value, ctr.Value);
-					AddRectangle(true, wbl.Value, wtr.Value, wtr.Value-1, wbl.Value-1);
+				int? cbl = ceilingVertMap[x, y];
+				int? cbr = ceilingVertMap[x+1, y];
+				int? ctl = ceilingVertMap[x, y+1];
+				int? ctr = ceilingVertMap[x+1, y+1];
+				WallVert wbl = wallVertMap[x, y];
+				WallVert wbr = wallVertMap[x+1, y];
+				WallVert wtl = wallVertMap[x, y+1];
+				WallVert wtr = wallVertMap[x+1, y+1];
+				if (cbl.HasValue && cbr.HasValue && ctl.HasValue && ctr.HasValue) {	// full ceiling
+					AddRectangle(false, cbl.Value, ctl.Value, ctr.Value, cbr.Value);
+				} else if (cbr.HasValue && ctl.HasValue && ctr.HasValue) {	// tr <-> bl diagonal facing down
+					AddTriangle(false, cbr.Value, ctl.Value, ctr.Value);
+					AddRectangle(true, wtl.GetCeilVert(), wbr.GetCeilVert(), wbr.GetFloorVert(), wtl.GetFloorVert());
+					wtl.SetUsed();
+					wbr.SetUsed();
+				} else if (cbl.HasValue && ctl.HasValue && ctr.HasValue) {	// tl <-> br diagonal facing down
+					AddTriangle(false, cbl.Value, ctl.Value, ctr.Value);
+					AddRectangle(true, wbl.GetCeilVert(), wtr.GetCeilVert(), wtr.GetFloorVert(), wbl.GetFloorVert());
+					wbl.SetUsed();
+					wtr.SetUsed();
+				} else if (cbl.HasValue && cbr.HasValue && ctr.HasValue) {	// tl <-> br diagonal facing up
+					AddTriangle(false, cbl.Value, ctr.Value, cbr.Value);
+					AddRectangle(true, wbl.GetFloorVert(), wtr.GetFloorVert(), wtr.GetCeilVert(), wbl.GetCeilVert());
+					wbl.SetUsed();
+					wtr.SetUsed();
+				} else if (cbl.HasValue && cbr.HasValue && ctl.HasValue) {	// tr <-> bl diagonal facing up
+					AddTriangle(false, cbl.Value, ctl.Value, cbr.Value);
+					AddRectangle(true, wtl.GetFloorVert(), wbr.GetFloorVert(), wbr.GetCeilVert(), wtl.GetCeilVert());
+					wtl.SetUsed();
+					wbr.SetUsed();
 				} else {
-					if (ctl.HasValue && ctr.HasValue) {
-						AddRectangle(true, wtl.Value-1, wtl.Value, wtr.Value, wtr.Value-1);
-					} else if (ctr.HasValue && cbr.HasValue) {
-						AddRectangle(true, wtr.Value-1, wtr.Value, wbr.Value, wbr.Value-1);
-					} else if (cbr.HasValue && cbl.HasValue) {
-						AddRectangle(true, wbr.Value-1, wbr.Value, wbl.Value, wbl.Value-1);
-					} else if (cbl.HasValue && ctl.HasValue ) {
-						AddRectangle(true, wbl.Value-1, wbl.Value, wtl.Value, wtl.Value-1);
+					if (cbl.HasValue && cbr.HasValue) {						// bottom
+						int tl = wbl.GetCeilVert(), bl = wbl.GetFloorVert(), br = wbr.GetFloorVert(), tr = wbr.GetCeilVert();
+						AddRectangle(true, tl, bl, br, tr);
+						wbl.SetUsed();
+						wbr.SetUsed();
+					} else if (cbr.HasValue && ctr.HasValue) {				// right
+						int tl = wbr.GetCeilVert(), bl = wbr.GetFloorVert(), br = wtr.GetFloorVert(), tr = wtr.GetCeilVert();
+						AddRectangle(true, tl, bl, br, tr);
+						wbr.SetUsed();
+						wtr.SetUsed();
+					} else if (ctr.HasValue && ctl.HasValue) {				// top
+						int tl = wtr.GetCeilVert(), bl = wtr.GetFloorVert(), br = wtl.GetFloorVert(), tr = wtl.GetCeilVert();
+						AddRectangle(true, tl, bl, br, tr);
+						wtr.SetUsed();
+						wtl.SetUsed();
+					} else if (ctl.HasValue && cbl.HasValue ) {				// left
+						int tl = wtl.GetCeilVert(), bl = wtl.GetFloorVert(), br = wbl.GetFloorVert(), tr = wbl.GetCeilVert();
+						AddRectangle(true, tl, bl, br, tr);
+						wtl.SetUsed();
+						wbl.SetUsed();
 					}
 				}
 			}
@@ -126,6 +149,30 @@ public class MeshGen : MonoBehaviour {
 			ceilingTriangles.Add(v1);
 			ceilingTriangles.Add(v2);
 			ceilingTriangles.Add(v3);
+		}
+	}
+
+	private class WallVert {
+		public int c1, f1, c2, f2;
+		public bool isUsed = false;
+
+		public WallVert(int c1, int f1, int c2, int f2) {
+			this.c1 = c1;
+			this.f1 = f1;
+			this.c2 = c2;
+			this.f2 = f2;
+		}
+
+		public int GetCeilVert() {
+			return this.isUsed ? this.c2 : this.c1;
+		}
+
+		public int GetFloorVert() {
+			return this.isUsed ? this.f2 : this.f1;
+		}
+
+		public void SetUsed() {
+			this.isUsed = true;
 		}
 	}
 }
