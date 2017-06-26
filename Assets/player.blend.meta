@@ -6,12 +6,39 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Arm_L
+    100004: Arm_R
+    100006: Armature
+    100008: Calf_L
+    100010: Calf_R
+    100012: Chest
+    100014: Forearm_L
+    100016: Forearm_R
+    100018: Head
+    100020: Player
+    100022: Thigh_L
+    100024: Thigh_R
+    100026: Torso
     400000: //RootNode
+    400002: Arm_L
+    400004: Arm_R
+    400006: Armature
+    400008: Calf_L
+    400010: Calf_R
+    400012: Chest
+    400014: Forearm_L
+    400016: Forearm_R
+    400018: Head
+    400020: Player
+    400022: Thigh_L
+    400024: Thigh_R
+    400026: Torso
     2300000: //RootNode
     3300000: //RootNode
     4300000: Player
     7400000: Default Take
     9500000: //RootNode
+    13700000: Player
   materials:
     importMaterials: 1
     materialName: 0
