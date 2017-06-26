@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeshGen : MonoBehaviour {
 
-	public int wallHeight = 2;
+	public float wallHeight = 2f;
 
 	GameObject wallsObject, ceilingObject;
 
