@@ -15,6 +15,6 @@ public class Camera : MonoBehaviour {
 	
 	void FixedUpdate () {
 		Vector3 nextPos = target.position + offset;
-		transform.position = Vector3.Lerp(transform.position, nextPos, 20f * Time.deltaTime);
+		transform.position = Vector3.Lerp(transform.position, nextPos, smoothing * Time.deltaTime);
 	}
 }
