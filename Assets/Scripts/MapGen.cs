@@ -215,12 +215,17 @@ public class MapGen : MonoBehaviour {
 	}
 
 	void PlacePlayer() {
-		for (int x = 1; x < width - 1; x++) {
-			for (int y = 1; y < height - 1; y++) {
-				if (MapUtils.GetWallNeighbours(tileMap, x, y) == 0) {
-					player.transform.Translate(x, 0, y);
+		// scan diagonally for player spawn location
+		for (int sum = 0; sum < width + height - 1; sum++) {
+			int x = Math.Min(sum, width - 1), y = sum - x;
+			while (x >= 0 && y < height) {
+				if (x > 0 && y > 0 && x < width - 1 && y < height - 1
+						&& MapUtils.GetWallNeighbours(tileMap, x, y) == 0) {
+					player.GetComponent<Rigidbody>().MovePosition(new Vector3(x, 0, y));
 					return;
 				}
+				x--;
+				y++;
 			}
 		}
 	}
