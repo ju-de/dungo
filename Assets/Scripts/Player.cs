@@ -8,11 +8,11 @@ public class Player : MonoBehaviour {
 
 	Vector3 movement;
 	Rigidbody body;
-	GameObject playerModel;
+	Animator animator;
 
 	void Awake() {
 		body = GetComponent<Rigidbody>();
-		playerModel = this.transform.Find("Model").gameObject;
+		animator = GetComponent<Animator>();
 	}
 	
 	void FixedUpdate() {
@@ -24,9 +24,13 @@ public class Player : MonoBehaviour {
 			movement = Quaternion.Euler(0, 45, 0) * movement.normalized * moveSpeed * Time.deltaTime;
 			body.MovePosition(transform.position + movement);
 
-			Vector3 rotation = playerModel.transform.rotation.eulerAngles;
+			Vector3 rotation = this.transform.rotation.eulerAngles;
 			rotation.y = Quaternion.LookRotation(movement).eulerAngles.y;
-			playerModel.transform.eulerAngles = rotation;
-		}		
+			this.transform.eulerAngles = rotation;
+
+			animator.SetBool("Walking", true);
+		} else {
+			animator.SetBool("Walking", false);
+		}
 	}
 }
