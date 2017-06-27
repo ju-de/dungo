@@ -33,6 +33,9 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+# Blender
+*.blend1*
+
 /.vscode/
 
 .DS_Store
