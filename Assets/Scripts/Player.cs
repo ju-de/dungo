@@ -14,6 +14,12 @@ public class Player : MonoBehaviour {
 		body = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
 	}
+
+	void Update() {
+		if (Input.GetMouseButtonDown(0)) {
+            animator.SetTrigger("Attack");
+        }
+	}
 	
 	void FixedUpdate() {
 		float h = Input.GetAxisRaw("Horizontal");
