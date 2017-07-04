@@ -16,9 +16,11 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetMouseButtonDown(0)) {
-            animator.SetTrigger("Attack");
-        }
+		if (Input.GetMouseButton(0)) {
+            animator.SetBool("Attack", true);
+        } else {
+			animator.SetBool("Attack", false);
+		}
 	}
 	
 	void FixedUpdate() {
@@ -26,8 +28,9 @@ public class Player : MonoBehaviour {
 		float v = Input.GetAxisRaw("Vertical");
 
 		if (h != 0 || v != 0) {
+			float realMoveSpeed = animator.GetBool("Attack") ? moveSpeed / 2f : moveSpeed;
 			movement.Set(h, 0f, v);
-			movement = Quaternion.Euler(0, 45, 0) * movement.normalized * moveSpeed * Time.deltaTime;
+			movement = Quaternion.Euler(0, 45, 0) * movement.normalized * realMoveSpeed * Time.deltaTime;
 			body.MovePosition(transform.position + movement);
 
 			Vector3 rotation = this.transform.rotation.eulerAngles;
