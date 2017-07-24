@@ -22,13 +22,13 @@ public class Player : MonoBehaviour {
 			animator.SetBool("Attack", false);
 		}
 	}
-	
+
 	void FixedUpdate() {
 		float h = Input.GetAxisRaw("Horizontal");
 		float v = Input.GetAxisRaw("Vertical");
 
 		if (h != 0 || v != 0) {
-			float realMoveSpeed = animator.GetBool("Attack") ? moveSpeed / 2f : moveSpeed;
+			float realMoveSpeed = animator.GetBool("Attack") ? moveSpeed * 0.4f : moveSpeed;
 			movement.Set(h, 0f, v);
 			movement = Quaternion.Euler(0, 45, 0) * movement.normalized * realMoveSpeed * Time.deltaTime;
 			body.MovePosition(transform.position + movement);
