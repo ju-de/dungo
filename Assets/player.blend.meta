@@ -120,63 +120,9 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Torso
-        weight: 1
-      - path: Armature/Torso/Chest
-        weight: 1
-      - path: Armature/Torso/Chest/Arm_L
-        weight: 1
-      - path: Armature/Torso/Chest/Arm_L/Forearm_L
-        weight: 1
-      - path: Armature/Torso/Chest/Arm_R
-        weight: 1
-      - path: Armature/Torso/Chest/Arm_R/Forearm_R
-        weight: 1
-      - path: Armature/Torso/Chest/Head
-        weight: 1
-      - path: Armature/Torso/Thigh_L
-        weight: 1
-      - path: Armature/Torso/Thigh_L/Calf_L
-        weight: 1
-      - path: Armature/Torso/Thigh_R
-        weight: 1
-      - path: Armature/Torso/Thigh_R/Calf_R
-        weight: 1
-      - path: Armature_001
-        weight: 1
-      - path: Armature_001/Torso_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0/Forearm_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0/Forearm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Head_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0/Calf_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0/Calf_R_0
-        weight: 1
-      - path: Player
-        weight: 1
-      - path: Player_001
-        weight: 1
+      transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: attack_running
