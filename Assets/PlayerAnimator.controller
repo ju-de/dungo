@@ -8,7 +8,7 @@ AnimatorController:
   m_Name: PlayerAnimator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Walking
+  - m_Name: Running
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -103,7 +103,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Walking
+    m_ConditionEvent: Running
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Attack
@@ -178,7 +178,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Walking
+    m_ConditionEvent: Running
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102580986705035248}
@@ -223,7 +223,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Walking
+    m_ConditionEvent: Running
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102328181615419040}
@@ -247,7 +247,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Walking
+    m_ConditionEvent: Running
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102869951630402134}
@@ -271,7 +271,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Walking
+    m_ConditionEvent: Running
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102149143124915160}
@@ -295,7 +295,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Walking
+    m_ConditionEvent: Running
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Attack
@@ -389,7 +389,7 @@ AnimatorState:
   m_Motion: {fileID: 7400008, guid: 39b9b60bdbdae4067855da0f4029847f, type: 3}
   m_Tag: 
   m_SpeedParameter: 
-  m_MirrorParameter: Walking
+  m_MirrorParameter: Running
   m_CycleOffsetParameter: 
 --- !u!1102 &1102807341987499646
 AnimatorState:

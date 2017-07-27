@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 	public float moveSpeed = 8f;
+	public float attackMoveSpeedFactor = 0.4f;
 
 	Vector3 movement;
 	Rigidbody body;
@@ -28,7 +29,9 @@ public class Player : MonoBehaviour {
 		float v = Input.GetAxisRaw("Vertical");
 
 		if (h != 0 || v != 0) {
-			float realMoveSpeed = animator.GetBool("Attack") ? moveSpeed * 0.4f : moveSpeed;
+			float realMoveSpeed = animator.GetBool("Attack") ?
+					moveSpeed * attackMoveSpeedFactor :
+					moveSpeed;
 			movement.Set(h, 0f, v);
 			movement = Quaternion.Euler(0, 45, 0) * movement.normalized * realMoveSpeed * Time.deltaTime;
 			body.MovePosition(transform.position + movement);
@@ -37,9 +40,9 @@ public class Player : MonoBehaviour {
 			rotation.y = Quaternion.LookRotation(movement).eulerAngles.y;
 			this.transform.eulerAngles = rotation;
 
-			animator.SetBool("Walking", true);
+			animator.SetBool("Running", true);
 		} else {
-			animator.SetBool("Walking", false);
+			animator.SetBool("Running", false);
 		}
 	}
 }
