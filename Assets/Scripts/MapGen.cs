@@ -8,7 +8,6 @@ public class MapGen : MonoBehaviour {
 
 	public int seed;
 	public bool useCustomSeed = false;
-	public int width, height;
 	[Range(0, 100)]
 	public int fill;
 	public int smoothAndFillIterations, smoothIterations;
@@ -18,16 +17,20 @@ public class MapGen : MonoBehaviour {
 	public bool debug = false;
 
 	bool[,] tileMap;		// true = WHITE = WALL; false = BLACK = ROOM
+	int width, height;
 	List<List<Tile>> wallRegions;
 	List<List<Tile>> roomRegions;
 	
 	void Update() {
 		if (debug && Input.GetMouseButtonDown(0)) {
-            GenerateMap();
+            GenerateMap(width, height);
         }
 	}
 
-	public bool[,] GenerateMap() {
+	public bool[,] GenerateMap(int width, int height) {
+		this.width = width;
+		this.height = height;
+
 		Random.seed = useCustomSeed ? seed : (int) System.DateTime.Now.ToFileTime();
 		Debug.Log(Random.seed);
 

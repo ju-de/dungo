@@ -465,8 +465,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 2080215057}
+  mapWidth: 80
+  mapHeight: 80
   debugMapGen: 0
   player: {fileID: 810943438}
+  enemy: {fileID: 1044859813488182, guid: 846043aa5a51c4398861134317d1a4da, type: 2}
 --- !u!4 &1086020866
 Transform:
   m_ObjectHideFlags: 0
@@ -4098,8 +4101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 0
   useCustomSeed: 0
-  width: 80
-  height: 80
   fill: 35
   smoothAndFillIterations: 1
   smoothIterations: 2
@@ -4107,7 +4108,6 @@ MonoBehaviour:
   minMapSize: 25
   maxMapSize: 40
   debug: 0
-  player: {fileID: 810943438}
 --- !u!4 &2080215059
 Transform:
   m_ObjectHideFlags: 0

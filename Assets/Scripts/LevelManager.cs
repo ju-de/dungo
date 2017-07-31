@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour {
 
 	public GameObject map;
+	public int mapWidth, mapHeight;
 	public bool debugMapGen = false;
 
 	public GameObject player;
@@ -13,39 +15,60 @@ public class LevelManager : MonoBehaviour {
 	private MapGen mapGen;
 	private MeshGen meshGen;
 
+	private bool[,] tileMap;
+
 	void Awake() {
 		mapGen = map.GetComponent<MapGen>();
 		meshGen = map.GetComponent<MeshGen>();
 	}
 
 	void Start () {
-		bool[,] tileMap = mapGen.GenerateMap();
-		PlacePlayer(tileMap);
+		tileMap = mapGen.GenerateMap(mapWidth, mapHeight);
 		mapGen.debug = debugMapGen;
 		if (!debugMapGen) {
-			meshGen.GenerateMesh(tileMap, mapGen.width, mapGen.height);
+			meshGen.GenerateMesh(tileMap, mapWidth, mapHeight);
 		}
+
+		PlacePlayer();
+		PlaceEnemies();
 	}
 
 	void Update () {
 
 	}
 
-	void PlacePlayer(bool[,] tileMap) {
-		int width = mapGen.width;
-		int height = mapGen.height;
-
+	void PlacePlayer() {
 		// scan diagonally for player spawn location
-		for (int sum = 0; sum < width + height - 1; sum++) {
-			int x = Math.Min(sum, width - 1), y = sum - x;
-			while (x >= 0 && y < height) {
-				if (x > 0 && y > 0 && x < width - 1 && y < height - 1
+		for (int sum = 0; sum < mapWidth + mapHeight - 1; sum++) {
+			int x = Math.Min(sum, mapWidth - 1), y = sum - x;
+			while (x >= 0 && y < mapHeight) {
+				if (x > 0 && y > 0 && x < mapWidth - 1 && y < mapHeight - 1
 						&& MapUtils.GetWallNeighbours(tileMap, x, y) == 0) {
 					player.GetComponent<Rigidbody>().MovePosition(new Vector3(x, 0, y));
 					return;
 				}
 				x--;
 				y++;
+			}
+		}
+	}
+
+	public GameObject enemy;	// todo: relocate
+
+	void PlaceEnemies() {
+		int spawnCount = 10;
+		for (int i = 0; i < spawnCount; i++) {
+			int x, y;
+			while(spawnCount >= 0) {
+				x = (int) Random.Range(1, mapWidth - 1);
+				y = (int) Random.Range(1, mapWidth - 1);
+
+				if (MapUtils.GetWallNeighbours(tileMap, x, y) != 0) {
+					continue;
+				}
+
+				Instantiate(enemy, new Vector3(x, 2, y), Quaternion.Euler(-90, Random.Range(0f, 360f), 0));
+				spawnCount--;
 			}
 		}
 	}
