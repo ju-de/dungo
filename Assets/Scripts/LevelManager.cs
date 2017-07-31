@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour {
 			while (x >= 0 && y < mapHeight) {
 				if (x > 0 && y > 0 && x < mapWidth - 1 && y < mapHeight - 1
 						&& MapUtils.GetWallNeighbours(tileMap, x, y) == 0) {
-					player.GetComponent<Rigidbody>().MovePosition(new Vector3(x, 0, y));
+					player.transform.Translate(x, 0, y, null);
 					return;
 				}
 				x--;
