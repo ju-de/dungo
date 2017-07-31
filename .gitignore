@@ -36,6 +36,9 @@ sysinfo.txt
 # Blender
 *.blend1*
 
+# Default unnamed material
+unnamed.mat*
+
 /.vscode/
 
 .DS_Store

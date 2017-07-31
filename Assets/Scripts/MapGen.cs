@@ -17,20 +17,9 @@ public class MapGen : MonoBehaviour {
 
 	public bool debug = false;
 
-	public GameObject player;
-
 	bool[,] tileMap;		// true = WHITE = WALL; false = BLACK = ROOM
 	List<List<Tile>> wallRegions;
 	List<List<Tile>> roomRegions;
-
-	void Start() {
-		GenerateMap();
-		PlacePlayer();
-		if (!debug) {
-			MeshGen meshGen = GetComponent<MeshGen>();
-			meshGen.GenerateMesh(tileMap, width, height);
-		}
-	}
 	
 	void Update() {
 		if (debug && Input.GetMouseButtonDown(0)) {
@@ -38,13 +27,15 @@ public class MapGen : MonoBehaviour {
         }
 	}
 
-	void GenerateMap() {
+	public bool[,] GenerateMap() {
 		Random.seed = useCustomSeed ? seed : (int) System.DateTime.Now.ToFileTime();
 		Debug.Log(Random.seed);
 
 		for (int i = 0; i < 5; i++) {
 			if (TryGeneratingMap()) break;
 		}
+
+		return tileMap;
 	}
 
 	bool TryGeneratingMap() {
@@ -212,22 +203,6 @@ public class MapGen : MonoBehaviour {
 			}
 		}
 		return tiles;
-	}
-
-	void PlacePlayer() {
-		// scan diagonally for player spawn location
-		for (int sum = 0; sum < width + height - 1; sum++) {
-			int x = Math.Min(sum, width - 1), y = sum - x;
-			while (x >= 0 && y < height) {
-				if (x > 0 && y > 0 && x < width - 1 && y < height - 1
-						&& MapUtils.GetWallNeighbours(tileMap, x, y) == 0) {
-					player.GetComponent<Rigidbody>().MovePosition(new Vector3(x, 0, y));
-					return;
-				}
-				x--;
-				y++;
-			}
-		}
 	}
 
 	void OnDrawGizmos() {
