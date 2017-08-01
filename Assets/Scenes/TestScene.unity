@@ -177,6 +177,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 227106498}
   m_Mesh: {fileID: 0}
+--- !u!1001 &423075184
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 54376392053752266, guid: dfb4e381b7ba14ed38cd1d1f753e522d,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 54376392053752266, guid: dfb4e381b7ba14ed38cd1d1f753e522d,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &482515023
 Prefab:
   m_ObjectHideFlags: 0
@@ -519,6 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9567b8e117654b2cb64c58e673c9f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 810943438}
 --- !u!1 &1086020864
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +604,7 @@ MonoBehaviour:
   mapHeight: 80
   debugMapGen: 0
   player: {fileID: 810943438}
-  enemy: {fileID: 1044859813488182, guid: 846043aa5a51c4398861134317d1a4da, type: 2}
+  enemy: {fileID: 1088364257086342, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
 --- !u!4 &1086020866
 Transform:
   m_ObjectHideFlags: 0

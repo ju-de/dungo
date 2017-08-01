@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour {
 					continue;
 				}
 
-				Instantiate(enemy, new Vector3(x, 2, y), Quaternion.Euler(-90, Random.Range(0f, 360f), 0));
+				Instantiate(enemy, new Vector3(x, 2, y), Quaternion.Euler(0, Random.Range(0f, 360f), 0));
 				spawnCount--;
 			}
 		}

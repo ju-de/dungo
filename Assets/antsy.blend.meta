@@ -17,6 +17,8 @@ ModelImporter:
     100018: Thumb_L
     100020: Thumb_R
     100022: Torso
+    100024: Antenna_L
+    100026: Antenna_R
     400000: //RootNode
     400002: Arm_L
     400004: Arm_R
@@ -29,15 +31,20 @@ ModelImporter:
     400018: Thumb_L
     400020: Thumb_R
     400022: Torso
+    400024: Antenna_L
+    400026: Antenna_R
     2300000: //RootNode
     2300002: Cube
     3300000: //RootNode
     3300002: Cube
     4300000: Cube
     7400000: Default Take
+    7400002: idle
+    7400004: walk
     9500000: //RootNode
+    13700000: Cube
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -58,7 +65,119 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idle
+      takeName: idle
+      firstFrame: -1
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Torso
+        weight: 1
+      - path: Armature/Torso/Antenna_L
+        weight: 1
+      - path: Armature/Torso/Antenna_R
+        weight: 1
+      - path: Armature/Torso/Arm_L
+        weight: 1
+      - path: Armature/Torso/Arm_L/Hand_L
+        weight: 1
+      - path: Armature/Torso/Arm_L/Hand_L/Finger_L
+        weight: 1
+      - path: Armature/Torso/Arm_L/Thumb_L
+        weight: 1
+      - path: Armature/Torso/Arm_R
+        weight: 1
+      - path: Armature/Torso/Arm_R/Hand_R
+        weight: 1
+      - path: Armature/Torso/Arm_R/Hand_R/Finger_R
+        weight: 1
+      - path: Armature/Torso/Arm_R/Thumb_R
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: walk
+      takeName: walk
+      firstFrame: -1
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Torso
+        weight: 1
+      - path: Armature/Torso/Antenna_L
+        weight: 1
+      - path: Armature/Torso/Antenna_R
+        weight: 1
+      - path: Armature/Torso/Arm_L
+        weight: 1
+      - path: Armature/Torso/Arm_L/Hand_L
+        weight: 1
+      - path: Armature/Torso/Arm_L/Hand_L/Finger_L
+        weight: 1
+      - path: Armature/Torso/Arm_L/Thumb_L
+        weight: 1
+      - path: Armature/Torso/Arm_R
+        weight: 1
+      - path: Armature/Torso/Arm_R/Hand_R
+        weight: 1
+      - path: Armature/Torso/Arm_R/Hand_R/Finger_R
+        weight: 1
+      - path: Armature/Torso/Arm_R/Thumb_R
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -94,7 +213,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Torso
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
