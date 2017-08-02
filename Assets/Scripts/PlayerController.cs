@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
 	public float moveSpeed = 8f;
 	public float attackMoveSpeedFactor = 0.4f;
 
-	Vector3 movement;
-	Rigidbody body;
-	Animator animator;
+	private Vector3 movement;
+	private Rigidbody body;
+	private Animator animator;
+
+	private bool isAttacking = false;
 
 	void Awake() {
 		body = GetComponent<Rigidbody>();
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour {
 	void Update() {
 		if (Input.GetMouseButton(0)) {
             animator.SetBool("Attack", true);
+			isAttacking = true;
         } else {
 			animator.SetBool("Attack", false);
 		}
@@ -29,7 +32,7 @@ public class Player : MonoBehaviour {
 		float v = Input.GetAxisRaw("Vertical");
 
 		if (h != 0 || v != 0) {
-			float realMoveSpeed = animator.GetBool("Attack") ?
+			float realMoveSpeed = isAttacking ?
 					moveSpeed * attackMoveSpeedFactor :
 					moveSpeed;
 			movement.Set(h, 0f, v);
@@ -44,5 +47,10 @@ public class Player : MonoBehaviour {
 		} else {
 			animator.SetBool("Running", false);
 		}
+	}
+
+	public bool IsAttacking {
+		get { return isAttacking; }
+		set { isAttacking = value; }
 	}
 }
