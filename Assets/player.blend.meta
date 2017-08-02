@@ -32,6 +32,10 @@ ModelImporter:
     100048: Thigh_L_0
     100050: Thigh_R_0
     100052: Torso_0
+    100054: Body
+    100056: BodyRig
+    100058: Cape
+    100060: PoseRig
     400000: //RootNode
     400002: Arm_L
     400004: Arm_R
@@ -59,10 +63,16 @@ ModelImporter:
     400048: Thigh_L_0
     400050: Thigh_R_0
     400052: Torso_0
+    400054: Body
+    400056: BodyRig
+    400058: Cape
+    400060: PoseRig
     2300000: //RootNode
     3300000: //RootNode
     4300000: Player
     4300002: Player_001
+    4300004: Body
+    4300006: Cape
     7400000: Idle
     7400002: Running
     7400004: Running
@@ -72,6 +82,8 @@ ModelImporter:
     9500000: //RootNode
     13700000: Player
     13700002: Player_001
+    13700004: Body
+    13700006: Cape
   materials:
     importMaterials: 0
     materialName: 0
