@@ -7,15 +7,19 @@ public class PlayerController : MonoBehaviour {
 	public float moveSpeed;
 	public float rotationSmoothing;
 
+	public GameObject meleeWeapon;
+
 	private Vector3 movement;
 	private Rigidbody body;
 	private Animator animator;
+	private Collider weaponCollider;
 
 	private bool isAttacking = false;
 
 	void Awake() {
 		body = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
+		weaponCollider = meleeWeapon.GetComponent<Collider>();
 	}
 
 	void Update() {
@@ -50,5 +54,13 @@ public class PlayerController : MonoBehaviour {
 	public bool IsAttacking {
 		get { return isAttacking; }
 		set { isAttacking = value; }
+	}
+
+	void BeginHit() {
+		weaponCollider.enabled = true;
+	}
+
+	void EndHit() {
+		weaponCollider.enabled = false;
 	}
 }
