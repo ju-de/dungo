@@ -32,6 +32,7 @@ ModelImporter:
     100048: Thigh_L_0
     100050: Thigh_R_0
     100052: Torso_0
+    100054: Body
     400000: //RootNode
     400002: Arm_L
     400004: Arm_R
@@ -59,10 +60,16 @@ ModelImporter:
     400048: Thigh_L_0
     400050: Thigh_R_0
     400052: Torso_0
+    400054: Body
     2300000: //RootNode
+    2300002: Body
+    2300004: Player_001
     3300000: //RootNode
+    3300002: Body
+    3300004: Player_001
     4300000: Player
     4300002: Player_001
+    4300004: Body
     7400000: Idle
     7400002: Running
     7400004: Running
