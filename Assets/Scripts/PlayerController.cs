@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject meleeWeapon;
 
 	private Vector3 movement;
+	private Vector3 faceDirection;
 	private Rigidbody body;
 	private Animator animator;
 	private Collider weaponCollider;
@@ -37,34 +38,35 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate() {
 		Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
+		// Set animator param
+		animator.SetBool("Running", input != Vector3.zero);
+
 		if (input != Vector3.zero) {
-			animator.SetBool("Running", true);
-		} else {
-			animator.SetBool("Running", false);
+			faceDirection = Quaternion.Euler(0, 45, 0) * input.normalized;
 		}
 
-		currentSpeed = Mathf.Lerp(
+		// Handle movement
+		float targetSpeed = input == Vector3.zero ? 0f : moveSpeed;
+		if (Mathf.Abs(targetSpeed - currentSpeed) < 0.1f) {		// lerp threshold
+			currentSpeed = targetSpeed;
+		} else {
+			currentSpeed = Mathf.Lerp(
 			currentSpeed,
-			input == Vector3.zero ? 0f : moveSpeed,
+			targetSpeed,
 			movementSmoothing * Time.deltaTime);
+		}
+		movement = faceDirection * currentSpeed * Time.deltaTime;
+		body.MovePosition(transform.position + movement);
 
-		movement = Quaternion.Euler(0, 45, 0) * input.normalized * currentSpeed * Time.deltaTime;
-
-		// if (currentSpeed > 0.1f) {
-			body.MovePosition(transform.position + movement);
-		// }
-
-		if (movement != Vector3.zero) {
-			float targetRotation = Quaternion.LookRotation(movement).eulerAngles.y;
-			Vector3 targetRotationVec = new Vector3(0f, targetRotation, 0f);
-
-			// Stop lerping when the difference is below the threshold
-			if (Mathf.Abs(targetRotation - transform.eulerAngles.y) < 1f) {
-				transform.eulerAngles = targetRotationVec;
+		// Handle rotation
+		if (faceDirection != Vector3.zero) {
+			Quaternion targetRotation = Quaternion.LookRotation(faceDirection);
+			if (Mathf.Abs(targetRotation.eulerAngles.y - transform.eulerAngles.y) < 1f) {	// lerp threshold
+				transform.rotation = targetRotation;
 			} else {
-				transform.eulerAngles = Vector3.Lerp(
-					transform.eulerAngles,
-					targetRotationVec,
+				transform.rotation = Quaternion.Lerp(
+					transform.rotation,
+					targetRotation,
 					rotationSmoothing * Time.deltaTime);
 			}
 		}

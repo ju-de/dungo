@@ -718,7 +718,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 860666031}
-  m_LocalRotation: {x: -0.044388443, y: 0.8141196, z: -0.54928786, w: 0.18309002}
+  m_LocalRotation: {x: -0.04438844, y: 0.81411946, z: -0.5492878, w: 0.18309}
   m_LocalPosition: {x: -1.0744935, y: 0.09199248, z: 1.3086711}
   m_LocalScale: {x: 0.99999994, y: 1.0000004, z: 1.0000008}
   m_Children:
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  movementSmoothing: 5
+  movementSmoothing: 10
   rotationSmoothing: 15
   meleeWeapon: {fileID: 360934966}
   currentSpeed: 0
