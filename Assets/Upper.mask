@@ -10,55 +10,37 @@ AvatarMask:
   m_Elements:
   - m_Path: 
     m_Weight: 1
-  - m_Path: Armature
-    m_Weight: 1
-  - m_Path: Armature/Torso
-    m_Weight: 1
-  - m_Path: Armature/Torso/Chest
-    m_Weight: 1
-  - m_Path: Armature/Torso/Chest/Arm_L
-    m_Weight: 1
-  - m_Path: Armature/Torso/Chest/Arm_L/Forearm_L
-    m_Weight: 1
-  - m_Path: Armature/Torso/Chest/Arm_R
-    m_Weight: 1
-  - m_Path: Armature/Torso/Chest/Arm_R/Forearm_R
-    m_Weight: 1
-  - m_Path: Armature/Torso/Chest/Head
-    m_Weight: 1
-  - m_Path: Armature/Torso/Thigh_L
+  - m_Path: PlayerModel
     m_Weight: 0
-  - m_Path: Armature/Torso/Thigh_L/Calf_L
+  - m_Path: Rig
     m_Weight: 0
-  - m_Path: Armature/Torso/Thigh_R
+  - m_Path: Rig/Knee_L
     m_Weight: 0
-  - m_Path: Armature/Torso/Thigh_R/Calf_R
+  - m_Path: Rig/Knee_R
     m_Weight: 0
-  - m_Path: Armature_001
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0/Chest_0
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0/Chest_0/Arm_L_0
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0/Chest_0/Arm_L_0/Forearm_L_0
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0/Chest_0/Arm_R_0
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0/Chest_0/Arm_R_0/Forearm_R_0
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0/Chest_0/Head_0
-    m_Weight: 1
-  - m_Path: Armature_001/Torso_0/Thigh_L_0
+  - m_Path: Rig/Leg_IK_L
     m_Weight: 0
-  - m_Path: Armature_001/Torso_0/Thigh_L_0/Calf_L_0
+  - m_Path: Rig/Leg_IK_R
     m_Weight: 0
-  - m_Path: Armature_001/Torso_0/Thigh_R_0
+  - m_Path: Rig/Torso
+    m_Weight: 1
+  - m_Path: Rig/Torso/Chest
+    m_Weight: 1
+  - m_Path: Rig/Torso/Chest/Arm_L
+    m_Weight: 1
+  - m_Path: Rig/Torso/Chest/Arm_L/Forearm_L
+    m_Weight: 1
+  - m_Path: Rig/Torso/Chest/Arm_R
+    m_Weight: 1
+  - m_Path: Rig/Torso/Chest/Arm_R/Forearm_R
+    m_Weight: 1
+  - m_Path: Rig/Torso/Chest/Head
+    m_Weight: 1
+  - m_Path: Rig/Torso/Thigh_L
     m_Weight: 0
-  - m_Path: Armature_001/Torso_0/Thigh_R_0/Calf_R_0
+  - m_Path: Rig/Torso/Thigh_L/Calf_L
     m_Weight: 0
-  - m_Path: Player
+  - m_Path: Rig/Torso/Thigh_R
     m_Weight: 0
-  - m_Path: Player_001
+  - m_Path: Rig/Torso/Thigh_R/Calf_R
     m_Weight: 0
