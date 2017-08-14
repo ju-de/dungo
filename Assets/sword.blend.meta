@@ -16,9 +16,11 @@ ModelImporter:
     2300000: Cube
     2300002: Cube_001
     2300004: Cube_002
+    2300006: //RootNode
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
+    3300006: //RootNode
     4300000: Cube_001
     4300002: Cube
     4300004: Cube_002
@@ -69,7 +71,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

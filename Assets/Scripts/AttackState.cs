@@ -16,7 +16,7 @@ public class AttackState : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		GameObject player = GameObject.FindWithTag("Player");
 		PlayerController playerScript = player.GetComponent<PlayerController>();
-		Debug.Log(playerScript);
+		// Debug.Log(playerScript);
 		playerScript.IsAttacking = false;
 	}
 

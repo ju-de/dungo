@@ -8,7 +8,13 @@ public class MeleeWeapon : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject != player) {
-			Debug.Log("Hit!");
+			EnemyController enemy = other.GetComponent<EnemyController>();
+
+			if (enemy != null) {
+				Debug.Log("Hit!");
+				enemy.TakeDamage(10, player.transform.eulerAngles);
+			}
+
 		}
 	}
 }

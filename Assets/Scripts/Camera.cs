@@ -6,15 +6,15 @@ public class Camera : MonoBehaviour {
 
 	public Transform target;
 	public float smoothing = 20f;
-
 	public Vector3 offset;
 
+	private Vector3 vel = Vector3.zero;
+
 	void Awake () {
-		// offset = new Vector3(-5, 7, -5);
 	}
 	
 	void FixedUpdate () {
 		Vector3 nextPos = target.position + offset;
-		transform.position = Vector3.Lerp(transform.position, nextPos, smoothing * Time.deltaTime);
+		transform.position = Vector3.SmoothDamp(transform.position, nextPos, ref vel, smoothing * Time.deltaTime);
 	}
 }

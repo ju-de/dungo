@@ -5,17 +5,25 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public float moveSpeed;
+	public float movementSmoothing;
 	public float rotationSmoothing;
 
+	public GameObject meleeWeapon;
+
 	private Vector3 movement;
+	private Vector3 faceDirection;
 	private Rigidbody body;
 	private Animator animator;
+	private Collider weaponCollider;
+
+	public float currentSpeed = 0f;
 
 	private bool isAttacking = false;
 
 	void Awake() {
 		body = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
+		weaponCollider = meleeWeapon.GetComponent<Collider>();
 	}
 
 	void Update() {
@@ -28,27 +36,52 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		float h = Input.GetAxisRaw("Horizontal");
-		float v = Input.GetAxisRaw("Vertical");
+		Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
-		if (h != 0 || v != 0) {
-			movement.Set(h, 0f, v);
-			movement = Quaternion.Euler(0, 45, 0) * movement.normalized * moveSpeed * Time.deltaTime;
-			body.MovePosition(transform.position + movement);
+		// Set animator param
+		animator.SetBool("Running", input != Vector3.zero);
 
-			animator.SetBool("Running", true);
-		} else {
-			animator.SetBool("Running", false);
+		if (input != Vector3.zero) {
+			faceDirection = Quaternion.Euler(0, 45, 0) * input.normalized;
 		}
 
-		if (movement != Vector3.zero) {
-			Quaternion newRot = Quaternion.LookRotation(movement);
-			transform.rotation = Quaternion.Lerp(transform.rotation, newRot, rotationSmoothing * Time.deltaTime);
+		// Handle movement
+		float targetSpeed = input == Vector3.zero ? 0f : moveSpeed;
+		if (Mathf.Abs(targetSpeed - currentSpeed) < 0.1f) {		// lerp threshold
+			currentSpeed = targetSpeed;
+		} else {
+			currentSpeed = Mathf.Lerp(
+			currentSpeed,
+			targetSpeed,
+			movementSmoothing * Time.deltaTime);
+		}
+		movement = faceDirection * currentSpeed * Time.deltaTime;
+		body.MovePosition(transform.position + movement);
+
+		// Handle rotation
+		if (faceDirection != Vector3.zero) {
+			Quaternion targetRotation = Quaternion.LookRotation(faceDirection);
+			if (Mathf.Abs(targetRotation.eulerAngles.y - transform.eulerAngles.y) < 1f) {	// lerp threshold
+				transform.rotation = targetRotation;
+			} else {
+				transform.rotation = Quaternion.Lerp(
+					transform.rotation,
+					targetRotation,
+					rotationSmoothing * Time.deltaTime);
+			}
 		}
 	}
 
 	public bool IsAttacking {
 		get { return isAttacking; }
 		set { isAttacking = value; }
+	}
+
+	void BeginHit() {
+		weaponCollider.enabled = true;
+	}
+
+	void EndHit() {
+		weaponCollider.enabled = false;
 	}
 }

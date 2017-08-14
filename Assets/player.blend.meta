@@ -88,7 +88,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -106,8 +106,8 @@ ModelImporter:
     - serializedVersion: 16
       name: attack
       takeName: attack_001
-      firstFrame: -1
-      lastFrame: 13
+      firstFrame: 0
+      lastFrame: 14
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -126,7 +126,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.33064517
+        functionName: BeginHit
+        data: 
+        objectReferenceParameter: {fileID: 100000, guid: 39b9b60bdbdae4067855da0f4029847f,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.59907836
+        functionName: EndHit
+        data: 
+        objectReferenceParameter: {fileID: 100000, guid: 39b9b60bdbdae4067855da0f4029847f,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
