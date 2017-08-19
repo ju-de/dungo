@@ -5,7 +5,7 @@ AvatarMask:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Upper
+  m_Name: RightArm
   m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
   m_Elements:
   - m_Path: 
@@ -25,17 +25,17 @@ AvatarMask:
   - m_Path: Rig/Torso
     m_Weight: 0
   - m_Path: Rig/Torso/Chest
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/Torso/Chest/Arm_L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/Torso/Chest/Arm_L/Forearm_L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/Torso/Chest/Arm_R
     m_Weight: 1
   - m_Path: Rig/Torso/Chest/Arm_R/Forearm_R
     m_Weight: 1
   - m_Path: Rig/Torso/Chest/Head
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/Torso/Thigh_L
     m_Weight: 0
   - m_Path: Rig/Torso/Thigh_L/Calf_L

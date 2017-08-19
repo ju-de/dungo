@@ -93,6 +93,7 @@ ModelImporter:
     7400014: run_blocking
     7400016: idle_blocking
     7400018: idle_holding_weapon
+    7400020: run_holding_weapon
     9500000: //RootNode
     13700000: Player
     13700002: Player_001
@@ -125,7 +126,7 @@ ModelImporter:
       name: 'attack '
       takeName: attack
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -231,7 +232,7 @@ ModelImporter:
       name: run_blocking
       takeName: run_blocking
       firstFrame: 0
-      lastFrame: 23
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -296,6 +297,70 @@ ModelImporter:
       takeName: idle_holding_weapon
       firstFrame: 0
       lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: PlayerModel
+        weight: 1
+      - path: Rig
+        weight: 1
+      - path: Rig/Knee_L
+        weight: 1
+      - path: Rig/Knee_R
+        weight: 1
+      - path: Rig/Leg_IK_L
+        weight: 1
+      - path: Rig/Leg_IK_R
+        weight: 1
+      - path: Rig/Torso
+        weight: 1
+      - path: Rig/Torso/Chest
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_L
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_L/Forearm_L
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_R
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_R/Forearm_R
+        weight: 1
+      - path: Rig/Torso/Chest/Head
+        weight: 1
+      - path: Rig/Torso/Thigh_L
+        weight: 1
+      - path: Rig/Torso/Thigh_L/Calf_L
+        weight: 1
+      - path: Rig/Torso/Thigh_R
+        weight: 1
+      - path: Rig/Torso/Thigh_R/Calf_R
+        weight: 1
+      maskType: 3
+      maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: run_holding_weapon
+      takeName: run_holding_weapon
+      firstFrame: 0
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
