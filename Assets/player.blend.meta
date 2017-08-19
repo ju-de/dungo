@@ -32,6 +32,13 @@ ModelImporter:
     100048: Thigh_L_0
     100050: Thigh_R_0
     100052: Torso_0
+    100054: Body
+    100056: Knee_L
+    100058: Knee_R
+    100060: Leg_IK_L
+    100062: Leg_IK_R
+    100064: PlayerModel
+    100066: Rig
     400000: //RootNode
     400002: Arm_L
     400004: Arm_R
@@ -59,19 +66,38 @@ ModelImporter:
     400048: Thigh_L_0
     400050: Thigh_R_0
     400052: Torso_0
+    400054: Body
+    400056: Knee_L
+    400058: Knee_R
+    400060: Leg_IK_L
+    400062: Leg_IK_R
+    400064: PlayerModel
+    400066: Rig
     2300000: //RootNode
+    2300002: Body
+    2300004: Player_001
     3300000: //RootNode
+    3300002: Body
+    3300004: Player_001
     4300000: Player
     4300002: Player_001
+    4300004: Body
+    4300006: PlayerModel
     7400000: Idle
     7400002: Running
     7400004: Running
     7400006: attack
     7400008: attack_running
     7400010: running_block_alt
+    7400012: 'attack '
+    7400014: run_blocking
+    7400016: idle_blocking
+    7400018: idle_holding_weapon
+    7400020: run_holding_weapon
     9500000: //RootNode
     13700000: Player
     13700002: Player_001
+    13700004: PlayerModel
   materials:
     importMaterials: 0
     materialName: 0
@@ -79,7 +105,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
+    resampleCurves: 0
     optimizeGameObjects: 0
     motionNodeName: <Root Transform>
     rigImportErrors: 
@@ -97,10 +123,10 @@ ModelImporter:
     - Armature/Torso/Chest/Arm_R/Forearm_R
     clipAnimations:
     - serializedVersion: 16
-      name: attack
-      takeName: attack_001
+      name: 'attack '
+      takeName: attack
       firstFrame: 0
-      lastFrame: 14
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -123,16 +149,14 @@ ModelImporter:
       - time: 0.33064517
         functionName: BeginHit
         data: 
-        objectReferenceParameter: {fileID: 100000, guid: 39b9b60bdbdae4067855da0f4029847f,
-          type: 3}
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.59907836
         functionName: EndHit
         data: 
-        objectReferenceParameter: {fileID: 100000, guid: 39b9b60bdbdae4067855da0f4029847f,
-          type: 3}
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -141,10 +165,10 @@ ModelImporter:
       maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: attack_running
-      takeName: attack_running
-      firstFrame: -1
-      lastFrame: 13
+      name: idle_blocking
+      takeName: idle_blocking
+      firstFrame: 0
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -167,66 +191,48 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
+      - path: PlayerModel
         weight: 1
-      - path: Armature/Torso
+      - path: Rig
         weight: 1
-      - path: Armature/Torso/Chest
+      - path: Rig/Knee_L
         weight: 1
-      - path: Armature/Torso/Chest/Arm_L
+      - path: Rig/Knee_R
         weight: 1
-      - path: Armature/Torso/Chest/Arm_L/Forearm_L
+      - path: Rig/Leg_IK_L
         weight: 1
-      - path: Armature/Torso/Chest/Arm_R
+      - path: Rig/Leg_IK_R
         weight: 1
-      - path: Armature/Torso/Chest/Arm_R/Forearm_R
+      - path: Rig/Torso
         weight: 1
-      - path: Armature/Torso/Chest/Head
+      - path: Rig/Torso/Chest
         weight: 1
-      - path: Armature/Torso/Thigh_L
+      - path: Rig/Torso/Chest/Arm_L
         weight: 1
-      - path: Armature/Torso/Thigh_L/Calf_L
+      - path: Rig/Torso/Chest/Arm_L/Forearm_L
         weight: 1
-      - path: Armature/Torso/Thigh_R
+      - path: Rig/Torso/Chest/Arm_R
         weight: 1
-      - path: Armature/Torso/Thigh_R/Calf_R
+      - path: Rig/Torso/Chest/Arm_R/Forearm_R
         weight: 1
-      - path: Armature_001
+      - path: Rig/Torso/Chest/Head
         weight: 1
-      - path: Armature_001/Torso_0
+      - path: Rig/Torso/Thigh_L
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0
+      - path: Rig/Torso/Thigh_L/Calf_L
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0
+      - path: Rig/Torso/Thigh_R
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0/Forearm_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0/Forearm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Head_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0/Calf_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0/Calf_R_0
-        weight: 1
-      - path: Player
-        weight: 1
-      - path: Player_001
+      - path: Rig/Torso/Thigh_R/Calf_R
         weight: 1
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: running_block_alt
-      takeName: running_block_alt_001
-      firstFrame: -1
-      lastFrame: 15
+      name: run_blocking
+      takeName: run_blocking
+      firstFrame: 0
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -249,66 +255,48 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
+      - path: PlayerModel
         weight: 1
-      - path: Armature/Torso
+      - path: Rig
         weight: 1
-      - path: Armature/Torso/Chest
+      - path: Rig/Knee_L
         weight: 1
-      - path: Armature/Torso/Chest/Arm_L
+      - path: Rig/Knee_R
         weight: 1
-      - path: Armature/Torso/Chest/Arm_L/Forearm_L
+      - path: Rig/Leg_IK_L
         weight: 1
-      - path: Armature/Torso/Chest/Arm_R
+      - path: Rig/Leg_IK_R
         weight: 1
-      - path: Armature/Torso/Chest/Arm_R/Forearm_R
+      - path: Rig/Torso
         weight: 1
-      - path: Armature/Torso/Chest/Head
+      - path: Rig/Torso/Chest
         weight: 1
-      - path: Armature/Torso/Thigh_L
+      - path: Rig/Torso/Chest/Arm_L
         weight: 1
-      - path: Armature/Torso/Thigh_L/Calf_L
+      - path: Rig/Torso/Chest/Arm_L/Forearm_L
         weight: 1
-      - path: Armature/Torso/Thigh_R
+      - path: Rig/Torso/Chest/Arm_R
         weight: 1
-      - path: Armature/Torso/Thigh_R/Calf_R
+      - path: Rig/Torso/Chest/Arm_R/Forearm_R
         weight: 1
-      - path: Armature_001
+      - path: Rig/Torso/Chest/Head
         weight: 1
-      - path: Armature_001/Torso_0
+      - path: Rig/Torso/Thigh_L
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0
+      - path: Rig/Torso/Thigh_L/Calf_L
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0
+      - path: Rig/Torso/Thigh_R
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0/Forearm_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0/Forearm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Head_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0/Calf_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0/Calf_R_0
-        weight: 1
-      - path: Player
-        weight: 1
-      - path: Player_001
+      - path: Rig/Torso/Thigh_R/Calf_R
         weight: 1
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Idle
-      takeName: idle_blocking_001
-      firstFrame: -1
-      lastFrame: 19
+      name: idle_holding_weapon
+      takeName: idle_holding_weapon
+      firstFrame: 0
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -331,60 +319,106 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Armature
+      - path: PlayerModel
         weight: 1
-      - path: Armature/Torso
+      - path: Rig
         weight: 1
-      - path: Armature/Torso/Chest
+      - path: Rig/Knee_L
         weight: 1
-      - path: Armature/Torso/Chest/Arm_L
+      - path: Rig/Knee_R
         weight: 1
-      - path: Armature/Torso/Chest/Arm_L/Forearm_L
+      - path: Rig/Leg_IK_L
         weight: 1
-      - path: Armature/Torso/Chest/Arm_R
+      - path: Rig/Leg_IK_R
         weight: 1
-      - path: Armature/Torso/Chest/Arm_R/Forearm_R
+      - path: Rig/Torso
         weight: 1
-      - path: Armature/Torso/Chest/Head
+      - path: Rig/Torso/Chest
         weight: 1
-      - path: Armature/Torso/Thigh_L
+      - path: Rig/Torso/Chest/Arm_L
         weight: 1
-      - path: Armature/Torso/Thigh_L/Calf_L
+      - path: Rig/Torso/Chest/Arm_L/Forearm_L
         weight: 1
-      - path: Armature/Torso/Thigh_R
+      - path: Rig/Torso/Chest/Arm_R
         weight: 1
-      - path: Armature/Torso/Thigh_R/Calf_R
+      - path: Rig/Torso/Chest/Arm_R/Forearm_R
         weight: 1
-      - path: Armature_001
+      - path: Rig/Torso/Chest/Head
         weight: 1
-      - path: Armature_001/Torso_0
+      - path: Rig/Torso/Thigh_L
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0
+      - path: Rig/Torso/Thigh_L/Calf_L
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0
+      - path: Rig/Torso/Thigh_R
         weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_L_0/Forearm_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Arm_R_0/Forearm_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Chest_0/Head_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_L_0/Calf_L_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0
-        weight: 1
-      - path: Armature_001/Torso_0/Thigh_R_0/Calf_R_0
-        weight: 1
-      - path: Player
-        weight: 1
-      - path: Player_001
+      - path: Rig/Torso/Thigh_R/Calf_R
         weight: 1
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: run_holding_weapon
+      takeName: run_holding_weapon
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: PlayerModel
+        weight: 1
+      - path: Rig
+        weight: 1
+      - path: Rig/Knee_L
+        weight: 1
+      - path: Rig/Knee_R
+        weight: 1
+      - path: Rig/Leg_IK_L
+        weight: 1
+      - path: Rig/Leg_IK_R
+        weight: 1
+      - path: Rig/Torso
+        weight: 1
+      - path: Rig/Torso/Chest
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_L
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_L/Forearm_L
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_R
+        weight: 1
+      - path: Rig/Torso/Chest/Arm_R/Forearm_R
+        weight: 1
+      - path: Rig/Torso/Chest/Head
+        weight: 1
+      - path: Rig/Torso/Thigh_L
+        weight: 1
+      - path: Rig/Torso/Thigh_L/Calf_L
+        weight: 1
+      - path: Rig/Torso/Thigh_R
+        weight: 1
+      - path: Rig/Torso/Thigh_R/Calf_R
+        weight: 1
+      maskType: 3
+      maskSource: {fileID: 31900000, guid: db7a8c7e6a6584107b247b831b46a741, type: 2}
       additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
