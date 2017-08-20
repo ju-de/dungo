@@ -17,6 +17,10 @@ public class MainMenu : MonoBehaviour {
 		SceneManager.LoadScene("Level");
 	}
 
+	public void ShowCredits() {
+		// SceneManager.LoadScene("Credits");
+	}
+
 	public void QuitGame() {
 		Application.Quit();
 	}
