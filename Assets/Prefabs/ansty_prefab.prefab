@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 195831553662008014}
   - component: {fileID: 95159190757031878}
   - component: {fileID: 114624056111973516}
+  - component: {fileID: 114856576257021864}
   m_Layer: 0
   m_Name: ansty_prefab
   m_TagString: Untagged
@@ -496,7 +497,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionAngleRange: 70
   aggroDistance: 10
-  deaggroDistance: 20
+  deaggroDistance: 10
+--- !u!114 &114856576257021864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088364257086342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df8808e13c9e45168e23093de2d094b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wanderDistance: 5
+  waitTime: 3
 --- !u!136 &136111456065769092
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -573,7 +587,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1088364257086342}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.7
+  m_Radius: 0.5
   m_Speed: 3
   m_Acceleration: 12
   avoidancePriority: 50

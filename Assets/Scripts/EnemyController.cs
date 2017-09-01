@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour {
 	NavMeshAgent agent;
 	Animator animator;
 	GameObject player;
+	EnemyWanderAI wanderAI;
 
 	bool aggro = false;
 
@@ -21,6 +22,7 @@ public class EnemyController : MonoBehaviour {
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>();
 		player = GameObject.FindWithTag("Player");
+		wanderAI = GetComponent<EnemyWanderAI>();
 	}
 
 	void FixedUpdate() {
@@ -38,12 +40,12 @@ public class EnemyController : MonoBehaviour {
 			aggro = false;
 		}
 		if (aggro) {
-			agent.isStopped = false;
+			wanderAI.Enabled = false;
 			agent.destination = player.transform.position;
 		} else {
-			agent.isStopped = true;
+			wanderAI.Enabled = true;
 		}
-		animator.SetBool("Walking", !agent.isStopped);
+		animator.SetBool("Walking", agent.velocity.magnitude > 0.1f);
 	}
 
 	public void TakeDamage(int amount, Vector3 direction) {
