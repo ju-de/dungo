@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour {
@@ -14,12 +15,14 @@ public class LevelManager : MonoBehaviour {
 
 	private MapGen mapGen;
 	private MeshGen meshGen;
+	private NavMeshSurface navMeshSurface;
 
 	private bool[,] tileMap;
 
 	void Awake() {
 		mapGen = map.GetComponent<MapGen>();
 		meshGen = map.GetComponent<MeshGen>();
+		navMeshSurface = map.GetComponent<NavMeshSurface>();
 	}
 
 	void Start () {
@@ -28,6 +31,8 @@ public class LevelManager : MonoBehaviour {
 		if (!debugMapGen) {
 			meshGen.GenerateMesh(tileMap, mapWidth, mapHeight);
 		}
+
+		navMeshSurface.BuildNavMesh();
 
 		PlacePlayer();
 		PlaceEnemies();
@@ -57,19 +62,17 @@ public class LevelManager : MonoBehaviour {
 
 	void PlaceEnemies() {
 		int spawnCount = 10;
-		for (int i = 0; i < spawnCount; i++) {
-			int x, y;
-			while(spawnCount >= 0) {
-				x = (int) Random.Range(1, mapWidth - 1);
-				y = (int) Random.Range(1, mapWidth - 1);
+		int x, y;
+		while(spawnCount > 0) {
+			x = (int) Random.Range(1, mapWidth - 1);
+			y = (int) Random.Range(1, mapWidth - 1);
 
-				if (MapUtils.GetWallNeighbours(tileMap, x, y) != 0) {
-					continue;
-				}
-
-				Instantiate(enemy, new Vector3(x, 2, y), Quaternion.Euler(0, Random.Range(0f, 360f), 0));
-				spawnCount--;
+			if (MapUtils.GetWallNeighbours(tileMap, x, y) != 0) {
+				continue;
 			}
+
+			Instantiate(enemy, new Vector3(x, 2, y), Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+			spawnCount--;
 		}
 	}
 }
