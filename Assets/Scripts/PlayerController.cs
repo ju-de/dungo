@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour {
 
 	public float currentSpeed = 0f;
 
-	private bool isAttacking = false;
-
 	void Awake() {
 		body = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
@@ -27,12 +25,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetMouseButton(0)) {
-            animator.SetBool("Attack", true);
-			isAttacking = true;
-        } else {
-			animator.SetBool("Attack", false);
-		}
+		animator.SetBool("Attack", Input.GetMouseButton(0));
 	}
 
 	void FixedUpdate() {
@@ -70,11 +63,6 @@ public class PlayerController : MonoBehaviour {
 					rotationSmoothing * Time.deltaTime);
 			}
 		}
-	}
-
-	public bool IsAttacking {
-		get { return isAttacking; }
-		set { isAttacking = value; }
 	}
 
 	void BeginHit() {
