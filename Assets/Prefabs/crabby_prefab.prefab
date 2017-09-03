@@ -36,7 +36,10 @@ GameObject:
   - component: {fileID: 4059394883648304}
   - component: {fileID: 54376392053752266}
   - component: {fileID: 136111456065769092}
+  - component: {fileID: 195831553662008014}
+  - component: {fileID: 95159190757031878}
   - component: {fileID: 114624056111973516}
+  - component: {fileID: 114856576257021864}
   m_Layer: 0
   m_Name: ansty_prefab
   m_TagString: Untagged
@@ -82,7 +85,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4181024190585696}
-  - component: {fileID: 95462520923090678}
   m_Layer: 0
   m_Name: antsy
   m_TagString: Untagged
@@ -261,7 +263,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1088364257086342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 2, z: 40}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 4181024190585696}
@@ -274,8 +276,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374165383346048}
-  m_LocalRotation: {x: -0, y: -0.00140581, z: -0, w: 0.99999905}
-  m_LocalPosition: {x: 0.00007629394, y: 0, z: -0.00015894571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4265600115677270}
@@ -465,13 +467,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!95 &95462520923090678
+--- !u!95 &95159190757031878
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1374165383346048}
+  m_GameObject: {fileID: 1088364257086342}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4996f0e9b336243468c4d9bc9a3fe145, type: 3}
   m_Controller: {fileID: 9100000, guid: 456eb6339c7dc4e7d9ff98d185d35e9a, type: 2}
@@ -493,6 +495,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359eb347fe84a4536800b1ede0f9a188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visionAngleRange: 70
+  aggroDistance: 10
+  deaggroDistance: 10
+--- !u!114 &114856576257021864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088364257086342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df8808e13c9e45168e23093de2d094b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wanderDistance: 5
+  waitTime: 3
 --- !u!136 &136111456065769092
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -561,3 +579,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.0817347, y: -0.058972716, z: -0.0076028705}
     m_Extent: {x: 1.3889952, y: 1.6619829, z: 1.2315388}
   m_DirtyAABB: 0
+--- !u!195 &195831553662008014
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088364257086342}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3
+  m_Acceleration: 12
+  avoidancePriority: 50
+  m_AngularSpeed: 500
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
