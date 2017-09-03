@@ -86,7 +86,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4060203406737842}
-  - component: {fileID: 95343028419523286}
   - component: {fileID: 65910267699511336}
   - component: {fileID: 114319975177000790}
   m_Layer: 0
@@ -178,7 +177,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5f79f0ffbac2044f980b4d1f55cf73d4, type: 2}
+  - {fileID: 2100000, guid: a1da46c4977e44587b9af7c322d55dea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -223,23 +222,6 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1393819695635038}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 763aac560448a4313b495f4af1d33013, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95343028419523286
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1739761722700594}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 763aac560448a4313b495f4af1d33013, type: 3}
   m_Controller: {fileID: 0}
@@ -391,7 +373,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1289940876
+  randomSeed: 2057899119
   InitialModule:
     serializedVersion: 3
     enabled: 1
