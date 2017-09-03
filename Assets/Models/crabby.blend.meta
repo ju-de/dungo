@@ -19,6 +19,7 @@ ModelImporter:
     100022: Torso
     100024: Antenna_L
     100026: Antenna_R
+    100028: Model
     400000: //RootNode
     400002: Arm_L
     400004: Arm_R
@@ -33,17 +34,20 @@ ModelImporter:
     400022: Torso
     400024: Antenna_L
     400026: Antenna_R
+    400028: Model
     2300000: //RootNode
     2300002: Cube
     3300000: //RootNode
     3300002: Cube
     4300000: Cube
+    4300002: Model
     7400000: Default Take
     7400002: idle
     7400004: walk
     7400006: attack
     9500000: //RootNode
     13700000: Cube
+    13700002: Model
   materials:
     importMaterials: 0
     materialName: 0
@@ -202,7 +206,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.319403
+        functionName: BeginHit
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.95049506
+        functionName: EndHit
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

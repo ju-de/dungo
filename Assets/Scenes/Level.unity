@@ -810,6 +810,48 @@ MonoBehaviour:
   target: {fileID: 2058890330}
   smoothing: 7
   offset: {x: -4, y: 7, z: -4}
+--- !u!1001 &1968556528
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059394883648304, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: dfb4e381b7ba14ed38cd1d1f753e522d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2058890326
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7208a96b76a31446c9603b7e42cff317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 6
   movementSmoothing: 10
   rotationSmoothing: 15
   meleeWeapon: {fileID: 433330162}
@@ -1001,6 +1043,6 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}

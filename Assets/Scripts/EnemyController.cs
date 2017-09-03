@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour {
 	public float visionAngleRange;
 	public float aggroDistance;
 	public float deaggroDistance;
+	public float attackDistance;
 
 	Rigidbody body;
 	NavMeshAgent agent;
@@ -16,6 +17,7 @@ public class EnemyController : MonoBehaviour {
 	EnemyWanderAI wanderAI;
 
 	bool aggro = false;
+	bool isAttacking = false;
 
 	void Awake() {
 		body = GetComponent<Rigidbody>(); 
@@ -34,13 +36,25 @@ public class EnemyController : MonoBehaviour {
 		Vector3 playerDirection = Quaternion.LookRotation(player.transform.position - transform.position).eulerAngles;
 		float directionDelta = Mathf.Abs(transform.rotation.eulerAngles.y - playerDirection.y);
 
+		// determine aggro status based on distance & line of sight
 		if (directionDelta < visionAngleRange && los && distance < aggroDistance) {
 			aggro = true;
 		} else if (!los && distance > deaggroDistance) {
 			aggro = false;
 		}
+
 		if (aggro) {
 			wanderAI.Enabled = false;
+			if (distance < attackDistance) {
+				agent.isStopped = true;
+				animator.SetBool("Attacking", true);
+				// isAttacking = true;
+			} else {
+				animator.SetBool("Attacking", false);
+				// if (!isAttacking) {
+					agent.isStopped = false;
+				// }
+			}
 			agent.destination = player.transform.position;
 		} else {
 			wanderAI.Enabled = true;
@@ -52,5 +66,13 @@ public class EnemyController : MonoBehaviour {
 		Debug.Log("Took damage: " + amount);
 
 		body.AddForce(new Vector3(100, 0, 0));
+	}
+
+	public void BeginHit() {
+		
+	}
+
+	public void EndHit() {
+		isAttacking = false;
 	}
 }
