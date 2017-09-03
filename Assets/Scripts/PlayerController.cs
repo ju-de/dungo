@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour {
 
 	void Update() {
 		animator.SetBool("Attack", Input.GetMouseButton(0));
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			animator.SetTrigger("Roll");
+		}
 	}
 
 	void FixedUpdate() {
