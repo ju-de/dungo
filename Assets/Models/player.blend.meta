@@ -452,7 +452,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7656766
+      - time: 0.7141745
         functionName: EndRoll
         data: 
         objectReferenceParameter: {instanceID: 0}
