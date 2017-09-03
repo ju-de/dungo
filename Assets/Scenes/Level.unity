@@ -425,6 +425,22 @@ Prefab:
       propertyPath: m_Name
       value: model
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 39b9b60bdbdae4067855da0f4029847f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.23549429
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 39b9b60bdbdae4067855da0f4029847f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.90036654
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 39b9b60bdbdae4067855da0f4029847f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.32838562
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 39b9b60bdbdae4067855da0f4029847f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.16138604
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: 39b9b60bdbdae4067855da0f4029847f, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 39b9b60bdbdae4067855da0f4029847f, type: 3}
@@ -863,6 +879,7 @@ MonoBehaviour:
   moveSpeed: 6
   movementSmoothing: 10
   rotationSmoothing: 15
+  rollSpeedMultiplier: 2
   meleeWeapon: {fileID: 433330162}
   currentSpeed: 0
 --- !u!136 &2058890329

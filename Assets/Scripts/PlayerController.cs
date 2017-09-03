@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public float moveSpeed;
 	public float movementSmoothing;
 	public float rotationSmoothing;
+	public float rollSpeedMultiplier;
 
 	public GameObject meleeWeapon;
 
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody body;
 	private Animator animator;
 	private Collider weaponCollider;
+
+	private bool isRolling = false;
 
 	public float currentSpeed = 0f;
 
@@ -37,12 +40,14 @@ public class PlayerController : MonoBehaviour {
 		// Set animator param
 		animator.SetBool("Running", input != Vector3.zero);
 
-		if (input != Vector3.zero) {
+		if (input != Vector3.zero && !isRolling) {	// prevent direction change during roll
 			faceDirection = Quaternion.Euler(0, 45, 0) * input.normalized;
 		}
 
 		// Handle movement
-		float targetSpeed = input == Vector3.zero ? 0f : moveSpeed;
+		float targetSpeed = isRolling ?
+								(rollSpeedMultiplier * moveSpeed) :
+								(input == Vector3.zero ? 0f : moveSpeed);
 		if (Mathf.Abs(targetSpeed - currentSpeed) < 0.1f) {		// lerp threshold
 			currentSpeed = targetSpeed;
 		} else {
@@ -74,5 +79,15 @@ public class PlayerController : MonoBehaviour {
 
 	void EndHit() {
 		weaponCollider.enabled = false;
+	}
+
+	void BeginRoll() {
+		Debug.Log("begin roll");
+		isRolling = true;
+	}
+
+	void EndRoll() {
+		Debug.Log("end roll");
+		isRolling = false;
 	}
 }
