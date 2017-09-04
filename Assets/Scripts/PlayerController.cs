@@ -28,7 +28,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		animator.SetBool("Attack", Input.GetMouseButton(0));
+		if (!isRolling) {
+			animator.SetBool("Attack", Input.GetMouseButton(0));
+		}
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			animator.SetTrigger("Roll");
 		}
@@ -82,12 +84,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void BeginRoll() {
-		Debug.Log("begin roll");
 		isRolling = true;
 	}
 
 	void EndRoll() {
-		Debug.Log("end roll");
 		isRolling = false;
 	}
 }

@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		if (aggro) {
-			wanderAI.Enabled = false;
+			wanderAI.IsEnabled = false;
 			if (distance < attackDistance) {
 				agent.isStopped = true;
 				animator.SetBool("Attacking", true);
@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour {
 			}
 			agent.destination = player.transform.position;
 		} else {
-			wanderAI.Enabled = true;
+			wanderAI.IsEnabled = true;
 		}
 		animator.SetBool("Walking", agent.velocity.magnitude > 0.1f);
 	}

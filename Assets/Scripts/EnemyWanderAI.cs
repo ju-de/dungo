@@ -8,7 +8,7 @@ public class EnemyWanderAI : MonoBehaviour {
 
 	NavMeshAgent agent;
 
-	bool enabled = false;
+	bool isEnabled = false;
 	float wait = 0f;
 	float timer = 0f;
 
@@ -20,7 +20,7 @@ public class EnemyWanderAI : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		if (!enabled) return;
+		if (!isEnabled) return;
 
 		timer += Time.deltaTime;
 		if (timer > wait) {
@@ -35,8 +35,8 @@ public class EnemyWanderAI : MonoBehaviour {
 		}
 	}
 
-	public bool Enabled {
-		get { return enabled; }
-		set { enabled = value; }
+	public bool IsEnabled {
+		get { return isEnabled; }
+		set { isEnabled = value; }
 	}
 }
